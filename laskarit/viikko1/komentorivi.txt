@@ -1,3 +1,5 @@
+komennon tree output:
+
 kurssit/
 └── ot2023
     └── viikko1
