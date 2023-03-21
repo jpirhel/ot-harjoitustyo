@@ -1,0 +1,113 @@
+commit 635a0a00cd8c6c9ad7a53e0464879d17bc47b8b8
+Author: Jani Pirisjoki <jani.pirisjoki@helsinki.fi>
+Date:   Tue Mar 21 05:23:51 2023 +0200
+
+    poisto ja uudelleennimeäminen
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 415a06baf396f12f4e0e3fca9ce7fbed0b4fa3cf
+Author: Jani Pirisjoki <jani.pirisjoki@helsinki.fi>
+Date:   Tue Mar 21 05:18:22 2023 +0200
+
+    tiedostoja
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit e539acf08f2119558856e22ecc53240ed5cca637
+Author: Jani Pirisjoki <jani.pirisjoki@helsinki.fi>
+Date:   Tue Mar 21 05:15:39 2023 +0200
+
+    muutoksia
+
+ eka.txt    | 3 ++-
+ kolmas.txt | 5 ++++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+commit b6a054debf09e6a3a85dcb6276ff3bfe4cdc8fb9
+Author: Jani Pirisjoki <jani.pirisjoki@helsinki.fi>
+Date:   Tue Mar 21 05:14:08 2023 +0200
+
+    muuta tiedoston nimi tiedosto.txt:istä eka.txt:iksi
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 330b83ad554b8bda313b62ce617adf3270d0752e
+Author: Jani Pirisjoki <jani.pirisjoki@helsinki.fi>
+Date:   Tue Mar 21 05:12:57 2023 +0200
+
+    poista toinen.txt
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 9e853a595d64932d636f002219f0ed92f9524d69
+Author: Jani Pirisjoki <jani.pirisjoki@helsinki.fi>
+Date:   Tue Mar 21 05:10:52 2023 +0200
+
+    poista ja lisää tiedosto.txt:iin
+
+ tiedosto.txt | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+commit 2eb52fe738c7764e1225a65f3769b4e218585d7b
+Author: Jani Pirisjoki <jani.pirisjoki@helsinki.fi>
+Date:   Tue Mar 21 05:10:14 2023 +0200
+
+    lisää lorem ipsum
+
+ tiedosto.txt | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 0bbf5f87755035ef205062c228d208d3739a685b
+Author: Jani Pirisjoki <jani.pirisjoki@helsinki.fi>
+Date:   Tue Mar 21 04:42:51 2023 +0200
+
+    stuff lisätty
+
+ stuff/neljas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit db98dcb3ef9decb3dd2e3a6723cf6bbb67f02d94
+Author: Jani Pirisjoki <jani.pirisjoki@helsinki.fi>
+Date:   Tue Mar 21 04:42:34 2023 +0200
+
+    toinen ja kolmas muutos
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit e3d4e803ea44b6c3a4c54e17df3383abb0286e69
+Author: Jani Pirisjoki <jani.pirisjoki@helsinki.fi>
+Date:   Tue Mar 21 04:40:15 2023 +0200
+
+    kolmas tiedosto
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 818e1fc4a453019ac20e5c0133ce78138ab598e1
+Author: Jani Pirisjoki <jani.pirisjoki@helsinki.fi>
+Date:   Tue Mar 21 04:39:33 2023 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 1 +
+ toinen.txt   | 0
+ 2 files changed, 1 insertion(+)
+
+commit 3dfac13587497bc14b7f9bafa4ca4fb26a2225b2
+Author: Jani Pirisjoki <jani.pirisjoki@helsinki.fi>
+Date:   Tue Mar 21 04:38:20 2023 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
