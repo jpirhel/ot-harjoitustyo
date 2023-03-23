@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "harjoitustyo"
+version = "0.1.0"
+description = "Harjoitustyo kurssille Ohjelmistotekniikka (kevat 2023)"
+authors = ["Jani Pirisjoki <jani.pirisjoki@helsinki.fi>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+tkintermapview = "^1.28"
+pyflakes = "^3.0.1"
+pytest = "^7.2.2"
+coverage = "^7.2.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
