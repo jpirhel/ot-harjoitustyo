@@ -4,6 +4,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 from .map.map import Map
+from .control.control import Control
 
 
 class Ui:
@@ -17,9 +18,22 @@ class Ui:
         width = container.winfo_width()
         height = container.winfo_height()
 
+        # create info frame (left)
+
+        control_frame_style = ttk.Style()
+        control_frame_style.configure("control_frame_style.TFrame", foreground="black", background="white")
+        control_frame = ttk.Frame(
+            master=container,
+            width=self._info_frame_width,
+            height=height,
+            style="control_frame_style.TFrame")
+        control_frame.grid(row=0, column=0)
+
+        control_frame.update_idletasks()
+
         map_frame_width = width - self._info_frame_width
 
-        # create map frame (left)
+        # create map frame (right)
 
         map_frame_style = ttk.Style()
         map_frame_style.configure("map_frame_style.TFrame", foreground="white", background="white")
@@ -28,24 +42,11 @@ class Ui:
             width=map_frame_width,
             height=height,
             style="map_frame_style.TFrame")
-        map_frame.grid(row=0, column=0)
+        map_frame.grid(row=0, column=1)
 
         map_frame.update_idletasks()
 
-        # create info frame (right)
-
-        info_frame_style = ttk.Style()
-        info_frame_style.configure("info_frame_style.TFrame", foreground="black", background="white")
-        info_frame = ttk.Frame(
-            master=container,
-            width=self._info_frame_width,
-            height=height,
-            style="info_frame_style.TFrame")
-        # info_frame.lift()
-        info_frame.grid(row=0, column=1)
-
-        info_frame.update_idletasks()
-
+        self._control = self._init_control(control_frame)
         self._map = self._init_map(map_frame)
 
     # noinspection PyMethodMayBeStatic
@@ -53,3 +54,9 @@ class Ui:
         map_widget = Map(container)
 
         return map_widget
+
+    # noinspection PyMethodMayBeStatic
+    def _init_control(self, container):
+        control_widget = Control(container)
+
+        return control_widget
