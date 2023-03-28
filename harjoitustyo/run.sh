@@ -1,3 +1,3 @@
 #!/bin/sh
 
-poetry run invoke start
+poetry run python run.py
