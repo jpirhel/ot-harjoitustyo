@@ -11,3 +11,5 @@ poetry.lock
 *.pyc
 
 tmp/
+
+testing.py
