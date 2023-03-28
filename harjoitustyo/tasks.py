@@ -10,3 +10,7 @@ else:
 @task
 def start(ctx):
     ctx.run(f"{python_executable} run.py", pty=False)
+
+@task
+def pyflakes(ctx):
+    ctx.run("pyflakes .", pty=False)
