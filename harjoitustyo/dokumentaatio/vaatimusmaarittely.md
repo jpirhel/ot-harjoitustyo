@@ -2,7 +2,7 @@
 
 ## Sovelluksen käyttötarkoitus
 
-Tämän harjoitustyösovelluksen on tarkoitus esittää sovelluksen käyttäjälle aikataulutietoja joukkoliikenteen pysäkseiltä
+Tämän harjoitustyösovelluksen on tarkoitus esittää sovelluksen käyttäjälle aikataulutietoja joukkoliikenteen pysäkeiltä
 sekä joukkoliikennelinjoilta.
 
 Sovellukseen kuuluu karttapohja, jonka avulla voi valita Helsingin Seudun Liikenteen alueella
