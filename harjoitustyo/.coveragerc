@@ -1,0 +1,7 @@
+[run]
+
+source = harjoitustyo
+
+# NOTE: UI is not tested
+
+omit = harjoitustyo/**/__init__.py,harjoitustyo/tests/**,harjoitustyo/ui/**,harjoitustyo/app.py
