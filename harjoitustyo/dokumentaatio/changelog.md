@@ -1,6 +1,6 @@
 ## Viikko 1
 
-- idean keksiminen & alustavaa suunniteelua
+- idean keksiminen & alustavaa suunnittelua
 - alustava implementointi käyttöliittymästä
 
 ## Viikko 2
