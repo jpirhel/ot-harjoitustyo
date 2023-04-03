@@ -43,13 +43,15 @@ classDiagram
     }
 
     %% a board contains its tiles
+    %% and has links to Aloitus & Vankila
+    %% The board layout would be defined in ruudut
     class Pelilauta {
         List ruudut
-        Aloitus aloitusSijanti
-
+        Aloitus aloitus
+        Vankila vankila
     }
 
-    %% different types of tiles
+    %% different types of tiles (using inheritance)
     Aloitus --|> Ruutu
     Vankila --|> Ruutu
     Sattuma--|> Ruutu
@@ -68,6 +70,7 @@ classDiagram
 
     class Hotelli
 
+    %% a card has an action
     class Kortti {
         Toiminto toiminto
     }
@@ -80,6 +83,7 @@ classDiagram
         Kortti kortti
     }
 
+    %% a street has a name, and: zero buildings OR one to four houses OR one hotelli
     class Katu {
         String nimi
         List talot
@@ -91,8 +95,8 @@ classDiagram
     Katu "1" ..> "0..4" Talo
 
     %% a tile has a link to the next tile on the board
+    %% a tile also has an action
     class Ruutu {
-        Integer sijantiLaudalla
         Ruutu seuraavaRuutu
         Toiminto toiminto
     }
