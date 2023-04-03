@@ -24,7 +24,7 @@ classDiagram
 
     %% a game has a link to the players and a board
     class Peli {
-        Array pelaajat
+        List pelaajat
         Pelilauta pelilauta
     }
 
