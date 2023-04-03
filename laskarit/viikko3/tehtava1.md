@@ -20,12 +20,31 @@ classDiagram
     Pelinappula "1" .. "1" Ruutu
 
     %% a tile has a link to the next tile
-    Ruutu "1" -- "1" SeuraavaRuutu
+    Ruutu "1" -- "1" Ruutu
 
-    class Pelaaja
-    class Peli
-    class Pelilauta
-    class Pelinappula
-    class Ruutu
-    class SeuraavaRuutu
+    %% a game has a link to the players and a board
+    class Peli {
+        Array pelaajat
+        Pelilauta pelilauta
+    }
+
+    %% a player has a link to a piece    
+    class Pelaaja {
+        Pelinappula pelinnappula
+    }
+    
+    %% a piece is on a tile
+    class Pelinappula {
+        Ruutu ruutu
+    }
+
+    %% a board contains its tiles
+    class Pelilauta {
+        Array ruudut
+    }
+
+    %% a tile has a link to the next tile on the board
+    class Ruutu {
+        Ruutu seuraavaRuutu
+    }   
 ```
