@@ -40,7 +40,7 @@ classDiagram
 
     %% a board contains its tiles
     class Pelilauta {
-        Array ruudut
+        List ruudut
     }
 
     %% a tile has a link to the next tile on the board
