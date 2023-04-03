@@ -4,28 +4,28 @@ Monopoli-kaavio.
 
 ```mermaid
 classDiagram
-%% a game of Monopoly contains 2-8 players
-Player "2-8" .. "1" Game
+    %% a game of Monopoly contains 2-8 players
+    Pelaaja "2-8" .. "1" Peli
 
     %% a game is played on one board
-    Game "1" .. "1" Board
+    Peli "1" .. "1" Pelilauta
 
     %% the board contains 40 tiles
-    Tile "40" -- "1" Board
+    Ruutu "40" -- "1" Pelilauta
 
     %% a player has one piece
-    Player "1" .. "1" Piece
+    Pelaaja "1" .. "1" Pelinappula
 
     %% a piece is on a tile
-    Piece "1" .. "1" Tile
+    Pelinappula "1" .. "1" Ruutu
 
     %% a tile has a link to the next tile
-    Tile "1" -- "1" NextTile
+    Ruutu "1" -- "1" SeuraavaRuutu
 
-    class Player
-    class Piece
-    class Game
-    class Board
-    class Tile
-    class NextTile
+    class Pelaaja
+    class Peli
+    class Pelilauta
+    class Pelinappula
+    class Ruutu
+    class SeuraavaRuutu
 ```
