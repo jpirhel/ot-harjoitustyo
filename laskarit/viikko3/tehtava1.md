@@ -45,6 +45,7 @@ classDiagram
 
     %% a tile has a link to the next tile on the board
     class Ruutu {
+        Integer sijaintiLaudalla
         Ruutu seuraavaRuutu
     }   
 ```
