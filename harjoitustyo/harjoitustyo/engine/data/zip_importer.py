@@ -123,6 +123,8 @@ class ZipImporter:
 
         cursor.execute(create_table_stop)
 
+        # FIXME add table for stop_times
+
         create_table_trip = """
             CREATE TABLE trip (
                 route_id str,
@@ -138,6 +140,20 @@ class ZipImporter:
         """
 
         cursor.execute(create_table_trip)
+
+        create_table_route = """
+            CREATE TABLE route (
+                route_id str PRIMARY KEY,
+                agency_id str,
+                route_short_name str,
+                route_long_name str,
+                route_desc str,
+                route_type str,
+                route_url str
+        );
+        """
+
+        cursor.execute(create_table_route)
 
     def _insert_datum(self, file_name, line):
         """Inserts a single datum to SQLite, based on the type"""
