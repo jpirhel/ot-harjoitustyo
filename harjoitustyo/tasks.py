@@ -11,6 +11,10 @@ else:
 
 
 @task
+def import_data_from_web(ctx):
+    ctx.run(f"{python_executable} run.py --import-data-from-web")
+
+@task
 def start(ctx):
     ctx.run(f"{python_executable} run.py", pty=pty)
 
