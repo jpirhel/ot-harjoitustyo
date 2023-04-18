@@ -35,7 +35,7 @@ def format(ctx):
     pass
 
 
-@task(pre=[pyflakes, pylint, autopep8])
+@task(pre=[pyflakes, pylint])
 def quality(ctx):
     pass
 
