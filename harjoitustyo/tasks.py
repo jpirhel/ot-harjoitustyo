@@ -21,6 +21,21 @@ def pyflakes(ctx):
 
 
 @task
+def pylint(ctx):
+    ctx.run("pylint harjoitustyo/", pty=pty)
+
+
+@task
+def autopep8(ctx):
+    ctx.run("autopep8 --in-place --recursive harjoitustyo/", pty=pty)
+
+
+@task(pre=[pyflakes, pylint, autopep8])
+def quality(ctx):
+    pass
+
+
+@task
 def test(ctx):
     ctx.run(f"{python_executable} -m pytest harjoitustyo/", pty=pty)
 
