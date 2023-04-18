@@ -22,6 +22,8 @@ Käynnistää sovelluksen.
 
 ### import-data-from-web
 
+**HUOM!** Datan importtaus kestää todella pitkään, joten tätä ei kannattane ajaa. Sovelluksen mukana jaellaan valmis tietokanta.
+
 Hakee HSL.zip:in HSL:n web-palvelimelta ja sijoittaa tiedot SQLite-tietokantaan.
 
 ### format
