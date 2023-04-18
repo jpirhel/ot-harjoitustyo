@@ -1,0 +1,176 @@
+import os
+import logging
+import pathlib
+import tempfile
+import zipfile
+import sqlite3
+
+from ..stop import Stop
+
+
+class ZipImporter:
+    _sqlite_file_name = "database.sqlite"
+
+    def __init__(self, data_file=None):
+        if data_file is None:
+            raise AttributeError("Can't import empty file!")
+
+        self._data_file = data_file
+
+        self._initialize_sqlite()
+
+        self._tmp_dir = None
+
+        self._log = logging.getLogger("DataImporter")
+
+    def import_data(self):
+        """Imports data from zipped HSL file"""
+
+        self._unzip_data_file()
+        self._import_data_directory()
+
+    def _unzip_data_file(self):
+        """Unzips HSL data file into a temporary directory"""
+
+        try:
+            path = pathlib.Path(self._data_file.name)
+        except AttributeError:
+            #  support string only path for local testing
+            path = pathlib.Path(self._data_file)
+
+        self._log.info("Data file path: %s", path)
+
+        if not path.is_file():
+            raise FileNotFoundError("Zip file doesn't exist")
+
+        # pylint: disable=consider-using-with
+        # reasoning: temporary directory should not be cleaned up yet
+
+        tmp_dir = tempfile.TemporaryDirectory()
+
+        # pylint: enable=consider-using-with
+
+        with zipfile.ZipFile(path, "r") as zip_file:
+            zip_file.extractall(tmp_dir.name)
+
+        self._tmp_dir = tmp_dir
+
+    def _import_data_directory(self):
+        stops_file_1 = "stops.txt"  # names of public transport stops
+        stops_file_2 = "stops2.txt"  # some versions of the Zip file have a stops2.txt file
+        stop_times = "stop_times.txt"  # timetables for the stops
+
+        files = [stops_file_1, stops_file_2, stop_times]
+
+        for file in files:
+            self._import_file(file)
+
+    def _import_file(self, file_name=None):
+        """Imports a single data file to SQLite"""
+
+        if not file_name:
+            raise FileNotFoundError("Can't find empty file!")
+
+        path = pathlib.Path(self._tmp_dir.name, file_name)
+
+        if not path.is_file():
+            self._log.error("Can't find file!")
+            return
+
+        with open(path.absolute(), "r", encoding="UTF-8") as data_file:
+            lines = data_file.readlines()
+
+            for line in lines:
+                self._insert_datum(file_name, line)
+
+    def _initialize_sqlite(self):
+        """Initializes SQLite file for data storage"""
+
+        # delete old SQLite file
+
+        path = pathlib.Path(self._sqlite_file_name)
+
+        if path.is_file():
+            os.remove(path.absolute())
+
+        self._sqlite = sqlite3.connect(self._sqlite_file_name)
+
+        cursor = self._sqlite.cursor()
+
+        create_table_stop = """
+            CREATE TABLE stop (
+                id integer PRIMARY KEY,
+                stop_code text,
+                stop_name text,
+                stop_desc text,
+                stop_lat text,
+                stop_lon text,
+                zone_id text,
+                stop_url text,
+                location_type integer,
+                parent_station integer,
+                wheelchair_boarding integer,
+                platform_code text,
+                vehicle_type integer
+            );
+        """
+
+        cursor.execute(create_table_stop)
+
+    def _insert_datum(self, file_name, line):
+        """Inserts a single datum to SQLite, based on the type"""
+
+        if file_name == "stops.txt":
+            self._insert_stop(line)
+
+        if file_name == "stops2.txt":
+            self._insert_stop(line)
+
+        if file_name == "stop_times.txt":
+            self._insert_stop_time(line)
+
+    def _insert_stop(self, line):
+        """Inserts a datum for single public transport stop"""
+
+        stop = Stop.from_string(line)
+
+        if stop is None:
+            self._log.error("Couldn't insert stop: %s, line: %s", stop, line)
+            return
+
+        # NOTE: this is probably inefficient
+
+        cursor = self._sqlite.cursor()
+
+        # pylint: disable=duplicate-code
+        # reasoning: this duplication is SQL vs. normal python code in class Stop
+
+        sql = """
+            INSERT INTO stop(
+                id,
+                stop_code,
+                stop_name,
+                stop_desc,
+                stop_lat,
+                stop_lon,
+                zone_id,
+                stop_url,
+                location_type,
+                parent_station,
+                wheelchair_boarding,
+                platform_code,
+                vehicle_type
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """
+
+        # pylint: enable=duplicate-code
+
+        cursor.execute(sql, stop.as_list())
+        self._sqlite.commit()
+        cursor.close()
+
+    def _insert_stop_time(self, line):
+        """Inserts a datum for single public transport stop timetable"""
+
+        print(f"_insert_stop_time: {line}")
