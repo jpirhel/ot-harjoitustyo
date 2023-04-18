@@ -75,8 +75,7 @@ class App:
     def _init_ui(self) -> Ui:
         return Ui(self._container)
 
-    # pylint: disable=unused-argument
-    def _handle_escape(self, event):
+    def _handle_escape(self):
         """Handler for escape key - exists app"""
         self._root.destroy()
 
