@@ -17,3 +17,12 @@
   Näiden avulla toteutetaan myöhemmin karttaosuuden toiminnallisuutta.
 
 - luotu testejä testaamaan edellämainittujen data classien luomista ja toiminnallisuutta
+
+## Viikko 4
+
+- aloitettu implementoimaan tietojen haku HSL:n web-palvelusta
+  - harjoitustyo/engine/data/*
+  - harjoitustyo/engine/*
+- ei käyttäjälle näkyviä muutoksia
+  - testejä ei vielä kirjoitettu testaamaan datan hakua, mutta nämä ovat suunnitelmissa
+- tehty pylint- ja autopep8 -korjaukset lähdekoodiin
