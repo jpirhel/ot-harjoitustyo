@@ -21,7 +21,8 @@ class Ui:
         # create info frame (left)
 
         control_frame_style = ttk.Style()
-        control_frame_style.configure("control_frame_style.TFrame", foreground="black", background="white")
+        control_frame_style.configure(
+            "control_frame_style.TFrame", foreground="black", background="white")
         control_frame = ttk.Frame(
             master=container,
             width=self._info_frame_width,
@@ -36,7 +37,8 @@ class Ui:
         # create map frame (right)
 
         map_frame_style = ttk.Style()
-        map_frame_style.configure("map_frame_style.TFrame", foreground="white", background="white")
+        map_frame_style.configure(
+            "map_frame_style.TFrame", foreground="white", background="white")
         map_frame = ttk.Frame(
             container,
             width=map_frame_width,

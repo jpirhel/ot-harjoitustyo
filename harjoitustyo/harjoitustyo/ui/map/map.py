@@ -34,7 +34,8 @@ class Map:
 
         # initialize map widget
 
-        map_widget = tkintermapview.TkinterMapView(container, width=width, height=height, corner_radius=0)
+        map_widget = tkintermapview.TkinterMapView(
+            container, width=width, height=height, corner_radius=0)
         map_widget.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
         return map_widget
@@ -47,4 +48,4 @@ class Map:
         m1 = self._map.set_position(self._lat, self._lon, marker=True)
         m1.set_text("Kumpulan kampus")
 
-        self._markers["kumpulan_kampus"] =  m1
+        self._markers["kumpulan_kampus"] = m1
