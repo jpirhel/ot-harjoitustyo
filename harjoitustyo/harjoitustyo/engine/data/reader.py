@@ -1,6 +1,6 @@
-from ..stop import Stop
-from ..trip import Trip
-from ..route import Route
+# from ..stop import Stop
+# from ..trip import Trip
+# from ..route import Route
 
 
 class Reader:

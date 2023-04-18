@@ -58,11 +58,11 @@ class ZipImporter:
         self._tmp_dir = tmp_dir
 
     def _import_data_directory(self):
-        stops_1 = "stops.txt"  # names of public transport stops
-        stops_2 = "stops2.txt"  # some versions of the Zip file have a stops2.txt file
-        stop_times = "stop_times.txt"  # timetables for the stops
-        trips = "trips.txt"
-        routes = "routes.txt"
+        # stops_1 = "stops.txt"  # data for public transport stops
+        # stops_2 = "stops2.txt"  # some versions of the Zip file have a stops2.txt file
+        # stop_times = "stop_times.txt"  # timetables for the stops
+        trips = "trips.txt" # data for public transport trips - needed to identify bus numbers
+        routes = "routes.txt" # data for public transport routes - needed to identify bus numbers
 
         # files = [trips, routes, stops_1, stops_2, stop_times]
         # files = [trips, routes, stops_1, stops_2]
