@@ -66,7 +66,8 @@ class ZipImporter:
 
         # files = [trips, routes, stops_1, stops_2, stop_times]
         # files = [trips, routes, stops_1, stops_2]
-        files = [trips, routes]
+        # files = [trips, routes]
+        files = [routes, trips]
 
         for file in files:
             self._import_file(file)
