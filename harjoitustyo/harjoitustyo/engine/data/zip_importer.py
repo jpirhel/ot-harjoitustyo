@@ -6,6 +6,8 @@ import zipfile
 import sqlite3
 
 from ..stop import Stop
+from ..route import Route
+from ..trip import Trip
 
 
 class ZipImporter:
@@ -56,11 +58,15 @@ class ZipImporter:
         self._tmp_dir = tmp_dir
 
     def _import_data_directory(self):
-        stops_file_1 = "stops.txt"  # names of public transport stops
-        stops_file_2 = "stops2.txt"  # some versions of the Zip file have a stops2.txt file
+        stops_1 = "stops.txt"  # names of public transport stops
+        stops_2 = "stops2.txt"  # some versions of the Zip file have a stops2.txt file
         stop_times = "stop_times.txt"  # timetables for the stops
+        trips = "trips.txt"
+        routes = "routes.txt"
 
-        files = [stops_file_1, stops_file_2, stop_times]
+        # files = [trips, routes, stops_1, stops_2, stop_times]
+        # files = [trips, routes, stops_1, stops_2]
+        files = [trips, routes]
 
         for file in files:
             self._import_file(file)
@@ -117,6 +123,22 @@ class ZipImporter:
 
         cursor.execute(create_table_stop)
 
+        create_table_trip = """
+            CREATE TABLE trip (
+                route_id str,
+                service_id str,
+                trip_id str PRIMARY KEY,
+                trip_headsign str,
+                direction_id str,
+                shape_id str,
+                wheelchair_accessible str,
+                bikes_allowed str,
+                max_delay str
+            );
+        """
+
+        cursor.execute(create_table_trip)
+
     def _insert_datum(self, file_name, line):
         """Inserts a single datum to SQLite, based on the type"""
 
@@ -129,8 +151,16 @@ class ZipImporter:
         if file_name == "stop_times.txt":
             self._insert_stop_time(line)
 
+        if file_name == "trips.txt":
+            self._insert_trip(line)
+
+        if file_name == "routes.txt":
+            self._insert_route(line)
+
     def _insert_stop(self, line):
         """Inserts a datum for single public transport stop"""
+
+        print(f"STOP: {line.rstrip()}")
 
         stop = Stop.from_string(line)
 
@@ -174,3 +204,74 @@ class ZipImporter:
         """Inserts a datum for single public transport stop timetable"""
 
         print(f"_insert_stop_time: {line}")
+
+    def _insert_route(self, line):
+        """Inserts a datum for single public transport route"""
+
+        print(f"ROUTE: {line.rstrip()}")
+
+        route = Route.from_string(line)
+
+        if route is None:
+            self._log.error("Couldn't insert route: %s, line: %s", route, line)
+            return
+
+        cursor = self._sqlite.cursor()
+
+        # pylint: disable=duplicate-code
+        # reasoning: this duplication is SQL vs. normal python code in class Stop
+
+        sql = """
+            INSERT INTO route(
+                route_id,
+                agency_id,
+                route_short_name,
+                route_long_name,
+                route_desc,
+                route_type,
+                route_url
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        """
+
+        # pylint: enable=duplicate-code
+
+        cursor.execute(sql, route.as_list())
+        self._sqlite.commit()
+        cursor.close()
+    def _insert_trip(self, line):
+        """Inserts a datum for single public transport trip"""
+
+        print(f"TRIP: {line.rstrip()}")
+
+        trip = Trip.from_string(line)
+
+        if trip is None:
+            self._log.error("Couldn't insert trip: %s, line: %s", trip, line)
+            return
+
+        cursor = self._sqlite.cursor()
+
+        # pylint: disable=duplicate-code
+        # reasoning: this duplication is SQL vs. normal python code in class Stop
+
+        sql = """
+            INSERT INTO trip(
+                route_id,
+                service_id,
+                trip_id,
+                trip_headsign,
+                direction_id,
+                shape_id,
+                wheelchair_accessible,
+                bikes_allowed,
+                max_delay
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """
+
+        # pylint: enable=duplicate-code
+
+        cursor.execute(sql, trip.as_list())
+        self._sqlite.commit()
+        cursor.close()

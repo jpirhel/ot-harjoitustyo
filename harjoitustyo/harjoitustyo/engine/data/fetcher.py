@@ -29,7 +29,7 @@ class Fetcher:
 
         tmp_file_name = "HSL.zip"
 
-        timeout = 60 # seconds
+        timeout = 60  # seconds
 
         with requests.get(self._data_url, stream=False, timeout=timeout) as req:
             with open(tmp_file_name, "wb") as tmp_file:

@@ -1,7 +1,10 @@
 from dataclasses import dataclass
 
+from .sql_object import SQLObject
+
+
 # pylint: disable=line-too-long
-# reasoning: these are examples of lines from actual data, and they long
+# reasoning: these are examples of lines from actual data, and they are long
 
 # format of data:
 # stop_id,stop_code,stop_name,stop_desc,stop_lat,stop_lon,zone_id,stop_url,location_type,parent_station,wheelchair_boarding,platform_code,vehicle_type
@@ -26,7 +29,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class Stop:
+class Stop(SQLObject):
     stop_id: int
     stop_code: str
     stop_name: str
@@ -41,22 +44,9 @@ class Stop:
     platform_code: str | None
     vehicle_type: int | None
 
-    def as_list(self):
-        ret = []
-
-        items = vars(self).items()
-
-        for item in items:
-            value = item[1] or ""
-            ret.append(value)
-
-        return ret
-
     @staticmethod
-    def from_string(data_string: str):
-        # NOTE: no error handling code implemented yet
-
-        parts = Stop.clean_string(data_string)
+    def from_string(obj: str):
+        parts = Stop.clean_string(obj)
 
         try:
             stop_id = int(parts[0])
@@ -82,7 +72,7 @@ class Stop:
 
         # pylint: enable=consider-using-ternary,simplify-boolean-expression
 
-        data_string = Stop(
+        obj = Stop(
             stop_id,
             stop_code,
             stop_name,
@@ -98,11 +88,12 @@ class Stop:
             vehicle_type
         )
 
-        return data_string
+        return obj
 
     @staticmethod
     def clean_string(data_string: str):
         parts = data_string.split(",")
+
         cleaned = []
 
         # Quick and dirty fix for stop names with commas
