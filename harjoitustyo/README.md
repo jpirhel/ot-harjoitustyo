@@ -6,6 +6,8 @@ Tämä on ohjelmistotekniikka-kurssin harjoitustyö. Linkit dokumentaatioon:
 
 [Vaatimusmäärittely](dokumentaatio/vaatimusmaarittely.md)
 
+[Arkkitehtuuri](dokumentaatio/arkkitehtuuri.md)
+
 ## Tasks
 
 Nämä ovat ajettavia taskeja, jotka ajetaan seuraavasti:
