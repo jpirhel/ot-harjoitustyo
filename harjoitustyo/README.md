@@ -20,9 +20,9 @@ poetry run invoke <task>
 
 Käynnistää sovelluksen.
 
-### data-import
+### import-data-from-web
 
-Sijoittaa HSL:n tiedot HSL.zip:istä SQLite-tietokantaan.
+Hakee HSL.zip:in HSL:n web-palvelimelta ja sijoittaa tiedot SQLite-tietokantaan.
 
 ### format
 
