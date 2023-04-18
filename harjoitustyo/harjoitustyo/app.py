@@ -2,7 +2,7 @@ import logging
 import platform
 
 import tkinter as tk
-import tkinter.ttk as ttk
+from tkinter import ttk
 
 from .ui.ui import Ui
 
@@ -53,7 +53,7 @@ class App:
         # root.columnconfigure(0, weight=1)
 
         root_geometry = root.winfo_geometry()
-        self._log.info(f"root_geometry: {root_geometry}")
+        self._log.info("root_geometry: %s", root_geometry)
 
         return root
 
@@ -75,6 +75,7 @@ class App:
     def _init_ui(self) -> Ui:
         return Ui(self._container)
 
+    # pylint: disable=unused-argument
     def _handle_escape(self, event):
         """Handler for escape key - exists app"""
         self._root.destroy()
