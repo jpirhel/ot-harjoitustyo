@@ -30,6 +30,11 @@ def autopep8(ctx):
     ctx.run("autopep8 --in-place --recursive harjoitustyo/", pty=pty)
 
 
+@task(autopep8)
+def format(ctx):
+    pass
+
+
 @task(pre=[pyflakes, pylint, autopep8])
 def quality(ctx):
     pass
