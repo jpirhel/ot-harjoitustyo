@@ -1,6 +1,9 @@
 # Harjoitustyö
 
-Tämä on ohjelmistotekniikka-kurssin harjoitustyö. Linkit dokumentaatioon:
+Tämä on ohjelmistotekniikka-kurssin harjoitustyö. Sovellus toteuttaa bussiaikataulujen karttanäkymän Kumpulan kampuksen
+ympäristössä.
+
+Linkit dokumentaatioon:
 
 [Changelog](dokumentaatio/changelog.md)
 
