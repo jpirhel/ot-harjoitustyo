@@ -11,8 +11,14 @@ class TestRoute(unittest.TestCase):
 
         route_data = """1001,HSL,1,Eira - Töölö - Sörnäinen (M) - Vallila,,0,http://aikataulut.hsl.fi/linjat/fi/h1_1a.html"""
         route = Route.from_string(route_data)
-
         self.route = route
+
+        header_data = """route_id,agency_id,route_short_name,route_long_name,route_desc,route_type,route_url"""
+        header = Route.from_string(header_data)
+        self.header = header
+
+    def test_header_creation(self):
+        self.assertIsNone(self.header)
 
     def test_route_creation(self):
         self.assertIsInstance(self.route, Route)

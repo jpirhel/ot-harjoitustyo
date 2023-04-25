@@ -10,9 +10,13 @@ class TestTrip(unittest.TestCase):
         """Initialize Trip data class from provided data and use the data to create the Trip data class instance"""
 
         trip_data = """1001,1001_20230417_20230531_Ke,1001_20230417_Ke_1_0540,"Vallila",0,1001_20230306_1,1,2,3"""
-        trip = Trip.from_string(trip_data)
+        self.trip = Trip.from_string(trip_data)
 
-        self.trip = trip
+        header_data = """route_id,service_id,trip_id,trip_headsign,direction_id,shape_id,wheelchair_accessible,bikes_allowed,max_delay"""
+        self.header = Trip.from_string(header_data)
+
+    def test_header_creation(self):
+        self.assertIsNone(self.header)
 
     def test_route_creation(self):
         self.assertIsInstance(self.trip, Trip)
