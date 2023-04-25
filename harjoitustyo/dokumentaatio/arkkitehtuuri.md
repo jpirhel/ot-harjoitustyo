@@ -38,7 +38,7 @@ Reader --> UiHandler: reader
 
 UiHandler ->> Reader: read_stops()
 
-Reader ->> SQLite: cursor()
+Reader ->> +SQLite: cursor()
 
 SQLite ->> +DbCursor: init()
 
@@ -63,6 +63,7 @@ deactivate Map
 deactivate UiHandler
 deactivate DbCursor
 deactivate Stop
+deactivate SQLite
 
 ```
 
