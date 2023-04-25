@@ -9,8 +9,6 @@ Sovellukseen kuuluu karttapohja, jonka avulla voi valita Helsingin Seudun Liiken
 pysäkkejä. Kun pysäkki on valittu, esitetään kyseisen pysäkin aikataulun tiedot. Aikataulutiedoissa näkyy, kuinka monen
 minuutin päästä kyseiselle pysäkille on tulossa busseja.
 
-Pysäkkien lisäksi sovelluksessa on mahdollista valita joukkoliikenteen linjoja, sekä saada näistä aikataulutietoja.
-FIXME Sovellus laskee, minkä pysäkin kohdalla ko. linjan kulkuneuvo on. 
 
 ## Käyttöliittymä
 
@@ -21,10 +19,15 @@ karttaa.
 
 ![](kuvat/kayttoliittyma.png?raw=true)
 
+
 ## Toiminnallisuus
 
-Sovellukseen on mahdollista tallentaa sekä pysäkkejä että bussilinjoja suosikeiksi. Suosikit ovat valittavissa helposti
-alasvetovalikosta. Tämän lisäksi sekä pysäkkejä että linjoja on mahdollista hakea vapaatekstihaulla tiedoista.
+Sovellus näyttää karttapohjalla Kumpulan kampukselta kilometrin päässä olevat pysäkit. Klikkaamalla pysäkkiä näytetään 
+ko. pysäkin aikataulutiedot. Aikataulutiedot näyttävät sekä menneet, tällä hetkellä tulossa olevan että myöhemmin tulevat
+kulkuneuvot pysäkille. Sovellus tallentaa kartan sijainnin ja zoom-tason sekä mahdollisen valitun pysäkin, kun sovellus 
+suljetaan ja seuraavalla käynnistyskerralla näyttää samat tiedot uudestaan. Täten sovellusta voi käyttää nopeana 
+suosikkipysäkin aikataulujen tarkistusvälineenä. Kartalla näkyvää aluetta voi muuttaa ja zoomata.
+
 
 ## Toteutus
 
