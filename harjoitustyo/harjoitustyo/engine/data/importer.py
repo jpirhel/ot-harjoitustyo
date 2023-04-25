@@ -20,14 +20,13 @@ class Importer:
         self._log.info("Importing data...")
 
         # set to True to skip fetching when testing locally
-        skip_fetching = True
+        skip_fetching = False
 
         fetcher = Fetcher()
         fetcher.fetch(skip_fetching=skip_fetching)
 
-        # zip_filename = fetcher.data_file
-        # zip_filename = "c:\\Users\jpir\IdeaProjects\opiskelu\ot-harjoitustyo\harjoitustyo\HSL.zip"
-        zip_filename = "HSL.zip"
+        zip_filename = fetcher.data_file
+
         self._log.info("Zip file: %s", zip_filename)
 
         zip_importer = ZipImporter(data_file=zip_filename)
