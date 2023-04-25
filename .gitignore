@@ -9,6 +9,7 @@ poetry.lock
 
 *.pyc
 *.zip
+*.log
 
 tmp/
 
