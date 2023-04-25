@@ -221,8 +221,6 @@ class ZipImporter:
     def _insert_stop(self, line):
         """Inserts a datum for single public transport stop"""
 
-        # print(f"STOP: {line.rstrip()}")
-
         stop = Stop.from_string(line)
 
         if stop is None:
