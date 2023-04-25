@@ -8,6 +8,21 @@ Tämä on ohjelmistotekniikka-kurssin harjoitustyö. Linkit dokumentaatioon:
 
 [Arkkitehtuuri](dokumentaatio/arkkitehtuuri.md)
 
+## Sovelluksen käynnistäminen
+
+Sovelluksen käynnistys on testattu Cubbli Linuxilla komennolla
+
+```
+poetry run invoke start
+```
+
+Mikäli tämä ei syystä tai toisesta toimi, lähdekoodissa on myös käynnistysskripti 
+
+```
+./run.sh
+```
+jolla sovellus käynnistyy.
+
 ## Tasks
 
 Nämä ovat ajettavia taskeja, jotka ajetaan seuraavasti:
