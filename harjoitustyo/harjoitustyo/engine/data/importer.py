@@ -6,6 +6,12 @@ from .zip_importer import ZipImporter
 
 
 class Importer:
+    """Imports data from web to SQLite database
+
+    The data resides on HSL servers and is periodically refreshed. Realtime information is not used,
+    because that requires an API key.
+    """
+
     def __init__(self):
         self._log = logging.getLogger("Importer")
 

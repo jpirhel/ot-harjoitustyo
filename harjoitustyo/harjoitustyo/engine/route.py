@@ -15,6 +15,8 @@ from .sql_object import SQLObject
 
 @dataclass
 class Route(SQLObject):
+    """Holds information relating to a public transport route"""
+
     route_id: str
     agency_id: str
     route_short_name: str

@@ -21,7 +21,7 @@ class Fetcher:
         self._log = logging.getLogger("DataFetcher")
 
     def fetch(self, skip_fetching=False):
-        """Fetcher data zip file and saves it to a temporary location"""
+        """Fetches data zip file and saves it to a temporary location"""
 
         if skip_fetching:
             self._log.info("skip_fetching set, skipping fetching")

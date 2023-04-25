@@ -30,6 +30,8 @@ from .sql_object import SQLObject
 
 @dataclass
 class Stop(SQLObject):
+    """Holds information relating to a public transport Stop"""
+
     stop_id: int
     stop_code: str
     stop_name: str
@@ -46,6 +48,8 @@ class Stop(SQLObject):
 
     @staticmethod
     def from_string(obj: str):
+        """Creates a Stop object from stop data"""
+
         parts = Stop.clean_string(obj)
 
         try:
@@ -92,6 +96,8 @@ class Stop(SQLObject):
 
     @staticmethod
     def clean_string(data_string: str):
+        """Cleans up stop line data"""
+
         parts = data_string.split(",")
 
         cleaned = []
@@ -117,3 +123,37 @@ class Stop(SQLObject):
             cleaned.append(part.strip().replace('"', ''))
 
         return cleaned
+
+    @staticmethod
+    def from_database(data):
+        """Creates Stop object from SQLite database row"""
+
+        stop = Stop(
+            data[0],
+            data[1],
+            data[2],
+            data[3],
+            data[4],
+            data[5],
+            data[6],
+            data[7],
+            data[8],
+            data[9],
+            data[10],
+            data[11],
+            data[12],
+        )
+
+        return stop
+
+    @property
+    def lat(self):
+        return float(self.stop_lat)
+
+    @property
+    def lon(self):
+        return float(self.stop_lon)
+
+    def coord(self):
+        """Returns stop coordinate as a tuple"""
+        return self.stop_lat, self.stop_lon

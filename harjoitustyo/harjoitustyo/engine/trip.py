@@ -16,6 +16,8 @@ from .sql_object import SQLObject
 # noinspection DuplicatedCode
 @dataclass
 class Trip(SQLObject):
+    """Holds information relating to a public transport trip"""
+
     route_id: str
     service_id: str
     trip_id: str

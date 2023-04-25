@@ -5,13 +5,26 @@ import tempfile
 import zipfile
 import sqlite3
 
+from geopy.distance import distance
+
+from ...constant import KUMPULA_COORD, MAXIMUM_STOP_DISTANCE_FROM_CENTER, SQLITE_FILE_NAME
+
 from ..stop import Stop
+from ..stop_time import StopTime
 from ..route import Route
 from ..trip import Trip
 
 
 class ZipImporter:
-    _sqlite_file_name = "database.sqlite"
+    """Imports data from zipped data file to SQLite database
+
+    Note that this is probably a very inefficient implementation.
+    """
+
+    _stop_ids = []
+
+    _inserted_stop_times = 0
+    _skipped_stop_times = 0
 
     def __init__(self, data_file=None):
         if data_file is None:
@@ -24,6 +37,12 @@ class ZipImporter:
         self._tmp_dir = None
 
         self._log = logging.getLogger("DataImporter")
+
+        # log errors to file
+        log_file = logging.FileHandler("zip_importer.log")
+        self._log.addHandler(log_file)
+
+        self.num_inserts = 0
 
     def import_data(self):
         """Imports data from zipped HSL file"""
@@ -58,22 +77,22 @@ class ZipImporter:
         self._tmp_dir = tmp_dir
 
     def _import_data_directory(self):
-        # stops_1 = "stops.txt"  # data for public transport stops
-        # stops_2 = "stops2.txt"  # some versions of the Zip file have a stops2.txt file
-        # stop_times = "stop_times.txt"  # timetables for the stops
-        trips = "trips.txt" # data for public transport trips - needed to identify bus numbers
-        routes = "routes.txt" # data for public transport routes - needed to identify bus numbers
+        stops_1 = "stops.txt"  # data for public transport stops
+        stops_2 = "stops2.txt"  # some versions of the Zip file have a stops2.txt file
+        stop_times = "stop_times.txt"  # timetables for the stops
+        trips = "trips.txt"  # data for public transport trips - needed to identify bus numbers
+        routes = "routes.txt"  # data for public transport routes - needed to identify bus numbers
 
-        # files = [trips, routes, stops_1, stops_2, stop_times]
-        # files = [trips, routes, stops_1, stops_2]
-        # files = [trips, routes]
-        files = [routes, trips]
+        files = [stops_1, stops_2, routes, trips, stop_times]
 
         for file in files:
             self._import_file(file)
 
     def _import_file(self, file_name=None):
-        """Imports a single data file to SQLite"""
+        """Imports a single data file to SQLite
+
+        Inserting is done by lines separated by newline.
+        """
 
         if not file_name:
             raise FileNotFoundError("Can't find empty file!")
@@ -81,7 +100,7 @@ class ZipImporter:
         path = pathlib.Path(self._tmp_dir.name, file_name)
 
         if not path.is_file():
-            self._log.error("Can't find file!")
+            self._log.error("Can't find file, file_name: %s", file_name)
             return
 
         with open(path.absolute(), "r", encoding="UTF-8") as data_file:
@@ -91,18 +110,25 @@ class ZipImporter:
                 self._insert_datum(file_name, line)
 
     def _initialize_sqlite(self):
-        """Initializes SQLite file for data storage"""
+        """Initializes SQLite file for data storage
+
+        Creates tables for all the relevant data types
+        """
 
         # delete old SQLite file
 
-        path = pathlib.Path(self._sqlite_file_name)
+        path = pathlib.Path(SQLITE_FILE_NAME)
 
         if path.is_file():
             os.remove(path.absolute())
 
-        self._sqlite = sqlite3.connect(self._sqlite_file_name)
+        self._sqlite = sqlite3.connect(SQLITE_FILE_NAME)
 
         cursor = self._sqlite.cursor()
+
+        # speed up inserts
+        synchronous_off = "PRAGMA synchronous = OFF"
+        cursor.execute(synchronous_off)
 
         create_table_stop = """
             CREATE TABLE stop (
@@ -124,7 +150,22 @@ class ZipImporter:
 
         cursor.execute(create_table_stop)
 
-        # FIXME add table for stop_times
+        create_table_stop_time = """
+            CREATE TABLE stop_time (
+                trip_id text,
+                arrival_time text,
+                departure_time text,
+                stop_id text,
+                stop_sequence text,
+                stop_headsign text,
+                pickup_type text,
+                drop_off_type text,
+                shape_dist_traveled text,
+                timepoint text
+            );
+        """
+
+        cursor.execute(create_table_stop_time)
 
         create_table_trip = """
             CREATE TABLE trip (
@@ -159,6 +200,9 @@ class ZipImporter:
     def _insert_datum(self, file_name, line):
         """Inserts a single datum to SQLite, based on the type"""
 
+        if file_name != "stop_times.txt" and self.num_inserts % 1000 == 0:
+            print(f"{file_name}, total inserts: {self.num_inserts}", flush=True)
+
         if file_name == "stops.txt":
             self._insert_stop(line)
 
@@ -177,7 +221,7 @@ class ZipImporter:
     def _insert_stop(self, line):
         """Inserts a datum for single public transport stop"""
 
-        print(f"STOP: {line.rstrip()}")
+        # print(f"STOP: {line.rstrip()}")
 
         stop = Stop.from_string(line)
 
@@ -185,7 +229,20 @@ class ZipImporter:
             self._log.error("Couldn't insert stop: %s, line: %s", stop, line)
             return
 
-        # NOTE: this is probably inefficient
+        coord = stop.coord()
+
+        distance_from_center = distance(coord, KUMPULA_COORD)
+
+        # do not insert stops over the maximum distance from the center point
+
+        if distance_from_center > MAXIMUM_STOP_DISTANCE_FROM_CENTER:
+            return
+
+        print(f"name: {stop.stop_name}, coord: {coord}, distance: {distance_from_center}",
+              flush=True)
+
+        # retain inserted stop id, used later to check if a stop time should be added to database
+        self._stop_ids.append(str(stop.stop_id))
 
         cursor = self._sqlite.cursor()
 
@@ -217,15 +274,61 @@ class ZipImporter:
         self._sqlite.commit()
         cursor.close()
 
-    def _insert_stop_time(self, line):
-        """Inserts a datum for single public transport stop timetable"""
+        self.num_inserts += 1
 
-        print(f"_insert_stop_time: {line}")
+    def _insert_stop_time(self, line):
+        """Inserts a datum for single public transport stop time"""
+
+        stop_time = StopTime.from_string(line)
+
+        if stop_time is None:
+            self._log.error("Couldn't insert stop time: %s, line: %s", stop_time, line)
+            return
+
+        # insert only stop times for stops in database
+
+        if stop_time.stop_id not in self._stop_ids:
+            self._skipped_stop_times += 1
+
+            if self._skipped_stop_times % 1000 == 0:
+                print(f"skipped: {self._skipped_stop_times}, inserted: {self._inserted_stop_times}",
+                      flush=True)
+
+            return
+
+        self._inserted_stop_times += 1
+
+        cursor = self._sqlite.cursor()
+
+        # pylint: disable=duplicate-code
+        # reasoning: this duplication is SQL vs. normal python code in class Stop
+
+        sql = """
+            INSERT INTO stop_time(
+                trip_id,
+                arrival_time,
+                departure_time,
+                stop_id,
+                stop_sequence,
+                stop_headsign,
+                pickup_type,
+                drop_off_type,
+                shape_dist_traveled,
+                timepoint
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """
+
+        # pylint: enable=duplicate-code
+
+        cursor.execute(sql, stop_time.as_list())
+        self._sqlite.commit()
+        cursor.close()
+
+        self.num_inserts += 1
 
     def _insert_route(self, line):
         """Inserts a datum for single public transport route"""
-
-        print(f"ROUTE: {line.rstrip()}")
 
         route = Route.from_string(line)
 
@@ -256,10 +359,11 @@ class ZipImporter:
         cursor.execute(sql, route.as_list())
         self._sqlite.commit()
         cursor.close()
+
+        self.num_inserts += 1
+
     def _insert_trip(self, line):
         """Inserts a datum for single public transport trip"""
-
-        print(f"TRIP: {line.rstrip()}")
 
         trip = Trip.from_string(line)
 
@@ -292,3 +396,5 @@ class ZipImporter:
         cursor.execute(sql, trip.as_list())
         self._sqlite.commit()
         cursor.close()
+
+        self.num_inserts += 1
