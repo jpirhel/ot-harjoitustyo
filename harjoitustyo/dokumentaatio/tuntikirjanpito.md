@@ -1,5 +1,10 @@
 # Tuntikirjanpito
 
+Huom!
+
+Kirjatut tunnit ovat todennäköisesti alakanttiin todelliseen käytettyyn aikaan verrattuna.
+Ei käytetty ajanhallintaohjelmistoa (time tracker).
+
 ### Viikko 1
 
 2023-03-23	4 h
@@ -15,3 +20,9 @@
 ### Viikko4
 
 2023-04-18  5 h (kumulatiivinen: 17 h)
+
+### Viikko 5
+
+2023-04-20	3h (suunnittelua & ohjelmointia, ei commiteja, kumulatiivinen: 20h)
+2023-04-25	5h, (kumulatiivinen: 25h)
+
