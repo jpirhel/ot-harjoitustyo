@@ -108,8 +108,8 @@ class Stop(SQLObject):
             tmp = parts
             parts[0] = tmp[0]
             parts[1] = tmp[1]
-            parts[2] = tmp[2]
-            parts[3] = f"{tmp[3]}, {tmp[4]}"
+            parts[2] = f"{tmp[2]},{tmp[3]}"
+            parts[3] = tmp[4]
             parts[4] = tmp[5]
             parts[5] = tmp[6]
             parts[7] = tmp[8]
