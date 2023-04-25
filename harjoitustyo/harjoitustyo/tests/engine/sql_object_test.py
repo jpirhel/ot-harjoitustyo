@@ -14,9 +14,9 @@ class TestSqlObject(unittest.TestCase):
     def test_as_list(self):
         lst = self.route.as_list()
 
-        # self.assertIsInstance(lst, list)
+        self.assertIsInstance(lst, list)
 
-        # self.assertEqual(len(lst), 7)
+        self.assertEqual(len(lst), 7)
 
         correct = [
             '1001',
