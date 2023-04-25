@@ -18,6 +18,54 @@ Täällä sijaitsevat sovelluksen testit. Sovelluksesta testataan ainoastaan eng
 
 Tietokanta sijaitsee tiedostossa **database.sqlite**. Tämä on bundlattu sovelluksen mukana. Sovellukseen on rakennettu toiminnallisuus datan importtaamiseen netistä, mutta nopeussyistä tätä toiminnallisuutta ei ole integroitu käyttöliittymään vaan se pitää erikseen käynnistää poetry taskilla (**import-data-from-web**). Datan importtausta ei aikataulusyistä ole optimoitu, joten se kestää huomattavan kauan (tunteja).
 
+# Sekvenssikaavio
+
+Tämä kuvaa sitä, miten SQLite-tietokannasta haetaan julkisen liikenteen pysäkkien tiedot ja esitetään ne käyttöliittymän karttanäkymässä.
+
+```mermaid
+
+sequenceDiagram
+
+activate UiHandler
+
+activate Map
+
+UiHandler ->> +Reader: __init__()
+
+
+activate Reader
+Reader --> UiHandler: reader
+
+UiHandler ->> Reader: read_stops()
+
+Reader ->> SQLite: cursor()
+
+SQLite ->> +DbCursor: init()
+
+SQLite ->> DbCursor: execute(sql)
+DbCursor --> SQLite: stop_data
+
+SQLite --> Reader: stop_data
+
+loop While stop_data
+    Reader ->> +Stop: __init__()
+    Stop --> Reader: stop
+end
+
+Reader --> UiHandler: stops
+
+loop While stops
+    UiHandler ->> Map: add_stop_marker(stop)   
+end
+
+deactivate Reader
+deactivate Map
+deactivate UiHandler
+deactivate DbCursor
+deactivate Stop
+
+```
+
 # Luokkakaavio
 
 Tähän on merkitty inheritance-, dependency- ja realization-tyypit, saattavat olla hieman epätäsmällisiä.
