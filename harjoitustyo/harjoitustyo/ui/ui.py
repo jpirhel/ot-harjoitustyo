@@ -5,10 +5,11 @@ import tkinter.ttk as ttk
 
 from .map.map import Map
 from .control.control import Control
+from .handler.handler import Handler
 
 
 class Ui:
-    _info_frame_width = 300  # pixels
+    control_frame_width = 300  # pixels
 
     def __init__(self, container: tk.Frame):
         self._log = logging.getLogger("Ui")
@@ -25,14 +26,15 @@ class Ui:
             "control_frame_style.TFrame", foreground="black", background="white")
         control_frame = ttk.Frame(
             master=container,
-            width=self._info_frame_width,
+            width=self.control_frame_width,
             height=height,
             style="control_frame_style.TFrame")
         control_frame.grid(row=0, column=0)
 
         control_frame.update_idletasks()
 
-        map_frame_width = width - self._info_frame_width
+        map_frame_width = width - self.control_frame_width
+        # map_frame_width = 100
 
         # create map frame (right)
 
@@ -51,6 +53,11 @@ class Ui:
         self._control = self._init_control(control_frame)
         self._map = self._init_map(map_frame)
 
+        self._handler = self._init_handler()
+
+        self._control.set_handler(self._handler)
+        self._map.set_handler(self._handler)
+
     # noinspection PyMethodMayBeStatic
     def _init_map(self, container) -> Map:
         map_widget = Map(container)
@@ -62,3 +69,7 @@ class Ui:
         control_widget = Control(container)
 
         return control_widget
+
+    def _init_handler(self):
+        handler = Handler(self._control, self._map)
+        return handler
