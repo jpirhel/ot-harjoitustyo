@@ -31,6 +31,7 @@
 ## Viikko 5
 
 - implementoitu tietojen haku web-palvelusta (poetry run invoke import-data-from-web)
+- poetry run invoke start pitäisi nyt toimia
 - aloitettu implementoimaan SQLite-tietokannan lukuominaisuutta
   - harjoitustyo/engine/data/reader.py
 - implementoitu pysäkkien markerien piirto karttapohjaan
