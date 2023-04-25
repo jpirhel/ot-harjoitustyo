@@ -12,7 +12,8 @@ class Control:
 
         self._inner_container = inner_container
 
-        button_home_icon = tk.PhotoImage("harjoitustyo/res/image/icons8-home-100.png")
+        button_home_icon = tk.PhotoImage(
+            "harjoitustyo/res/image/icons8-home-100.png")
         print("button_home_icon: %s" % button_home_icon, flush=True)
 
         button_home = tk.Button(
@@ -20,7 +21,7 @@ class Control:
             width=BUTTON_DEFAULT_WIDTH,
             height=BUTTON_DEFAULT_HEIGHT,
             command=self._handle_home,
-            )
+        )
         button_home.pack(side=tk.TOP)
 
         button_plus = tk.Button(

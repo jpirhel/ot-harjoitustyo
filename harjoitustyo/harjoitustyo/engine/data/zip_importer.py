@@ -280,7 +280,8 @@ class ZipImporter:
         stop_time = StopTime.from_string(line)
 
         if stop_time is None:
-            self._log.error("Couldn't insert stop time: %s, line: %s", stop_time, line)
+            self._log.error(
+                "Couldn't insert stop time: %s, line: %s", stop_time, line)
             return
 
         # insert only stop times for stops in database

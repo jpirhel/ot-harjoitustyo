@@ -17,7 +17,8 @@ class Reader:
         try:
             self._sqlite = sqlite3.connect(SQLITE_FILE_NAME)
         except sqlite3.Error:
-            self._log.error("Failed to connect to sqlite database: %s", SQLITE_FILE_NAME)
+            self._log.error(
+                "Failed to connect to sqlite database: %s", SQLITE_FILE_NAME)
 
         self._log.info("Reader initialized")
 

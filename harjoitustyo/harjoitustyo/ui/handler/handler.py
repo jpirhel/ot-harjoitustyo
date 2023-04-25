@@ -20,7 +20,8 @@ class Handler:
             self._map.add_stop_marker(stop)
 
     def handle(self, name=None, data=None, data2=None):
-        print("Handler.handle, name=%s, data=%s, data2=%s" % (name, data, data2), flush=True)
+        print("Handler.handle, name=%s, data=%s, data2=%s" %
+              (name, data, data2), flush=True)
 
         if name is None:
             self._log.error("Failed to handle name: %s, data: %s", name, data)
@@ -47,7 +48,8 @@ class Handler:
         self._map.zoom_out()
 
     def _handle_map_marker_clicked(self, marker, stop):
-        print(f"HANDLE_MAP_MARKER_CLICKED, marker: {marker}, stop: {stop}", flush=True)
+        print(
+            f"HANDLE_MAP_MARKER_CLICKED, marker: {marker}, stop: {stop}", flush=True)
 
         self._control.stop_info(stop)
 

@@ -24,4 +24,5 @@ class TestRoute(unittest.TestCase):
         self.assertEqual(self.route.route_short_name, "1")
 
     def test_route_long_name_correct(self):
-        self.assertEqual(self.route.route_long_name, "Eira - Töölö - Sörnäinen (M) - Vallila")
+        self.assertEqual(self.route.route_long_name,
+                         "Eira - Töölö - Sörnäinen (M) - Vallila")

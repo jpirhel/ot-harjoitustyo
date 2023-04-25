@@ -96,7 +96,8 @@ class Map:
 
     def add_marker(self, lat, lon, text=None):
         if text is None:
-            self._log.error("Can't add marker, lat: %s, lon: %s, text: %s", lat, lon, text)
+            self._log.error(
+                "Can't add marker, lat: %s, lon: %s, text: %s", lat, lon, text)
             return
 
         marker = self._map.set_marker(lat, lon, text)
@@ -128,7 +129,8 @@ class Map:
             data2 = stop
             self._handler.handle("map_marker_clicked", data, data2)
 
-        marker = self._map.set_marker(lat, lon, text, icon=icon, command=handler)
+        marker = self._map.set_marker(
+            lat, lon, text, icon=icon, command=handler)
 
         marker_id = f"{text}_{lat}_{lon}"
 
