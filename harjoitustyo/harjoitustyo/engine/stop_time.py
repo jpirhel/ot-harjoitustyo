@@ -31,6 +31,10 @@ class StopTime(SQLObject):
         parts = StopTime.clean_string(obj)
 
         trip_id = parts[0]
+
+        if trip_id == "trip_id":
+            return None
+
         arrival_time = parts[1]
         departure_time = parts[2]
         stop_id = parts[3]
