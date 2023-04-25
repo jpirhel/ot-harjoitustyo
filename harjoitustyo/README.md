@@ -11,6 +11,12 @@ Linkit dokumentaatioon:
 
 [Arkkitehtuuri](dokumentaatio/arkkitehtuuri.md)
 
+Linkit releaseihin:
+
+[Viikko 5 release](https://github.com/jpirhel/ot-harjoitustyo/releases/tag/viikko5)
+
+[kaikki releaset](https://github.com/jpirhel/ot-harjoitustyo/releases/)
+
 ## Sovelluksen käynnistäminen
 
 Sovelluksen käynnistys on testattu Cubbli Linuxilla komennolla
