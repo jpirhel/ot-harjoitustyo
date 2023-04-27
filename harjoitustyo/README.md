@@ -19,6 +19,12 @@ Linkit releaseihin:
 
 ## Sovelluksen käynnistäminen
 
+Ennen sovelluksen käynnistystä riippuvuudet tulee asentaa komennolla (harjoitustyön päähakemistossa)
+
+```
+poetry install
+```
+
 Sovelluksen käynnistys on testattu Cubbli Linuxilla komennolla
 
 ```
