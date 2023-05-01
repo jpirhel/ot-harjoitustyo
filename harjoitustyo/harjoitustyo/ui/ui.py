@@ -22,31 +22,39 @@ class Ui:
         # create info frame (left)
 
         control_frame_style = ttk.Style()
+
         control_frame_style.configure(
-            "control_frame_style.TFrame", foreground="black", background="white")
+            "control_frame_style.TFrame",
+            foreground="black",
+            background="white",
+        )
+
         control_frame = ttk.Frame(
             master=container,
             width=self.control_frame_width,
             height=height,
             style="control_frame_style.TFrame")
-        control_frame.grid(row=0, column=0)
+
+        control_frame.place(x=0, y=0)
 
         control_frame.update_idletasks()
 
         map_frame_width = width - self.control_frame_width
-        # map_frame_width = 100
 
         # create map frame (right)
 
         map_frame_style = ttk.Style()
+
         map_frame_style.configure(
             "map_frame_style.TFrame", foreground="white", background="white")
+
         map_frame = ttk.Frame(
             container,
             width=map_frame_width,
             height=height,
             style="map_frame_style.TFrame")
-        map_frame.grid(row=0, column=1)
+
+        map_frame.place(x=self.control_frame_width, y=0)
 
         map_frame.update_idletasks()
 

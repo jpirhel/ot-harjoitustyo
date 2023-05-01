@@ -1,58 +1,52 @@
 import tkinter as tk
 
-from harjoitustyo.constant import BUTTON_DEFAULT_WIDTH, BUTTON_DEFAULT_HEIGHT
-
+from .map_buttons import MapButtons
+from .stop_info import StopInfo
 
 class Control:
+    """Controls UI"""
+
+    _inner_container_width = 200
+    _selected_stop = None
+
     def __init__(self, container):
         self._container = container
         self._handler = None
 
-        inner_container = tk.Frame(master=container, width=200)
+        # create Tk frame for containing control elements
+
+        inner_container = tk.Frame(master=container, width=self._inner_container_width)
+        inner_container.grid(padx=10, pady=10)
 
         self._inner_container = inner_container
 
-        button_home_icon = tk.PhotoImage(
-            "harjoitustyo/res/image/icons8-home-100.png")
-        print("button_home_icon: %s" % button_home_icon, flush=True)
+        # create container for buttons controlling map
 
-        button_home = tk.Button(
-            inner_container,
-            width=BUTTON_DEFAULT_WIDTH,
-            height=BUTTON_DEFAULT_HEIGHT,
-            command=self._handle_home,
-        )
-        button_home.pack(side=tk.TOP)
+        buttons = MapButtons(inner_container)
+        buttons.container().pack()
 
-        button_plus = tk.Button(
-            inner_container,
-            width=BUTTON_DEFAULT_WIDTH,
-            height=BUTTON_DEFAULT_HEIGHT,
-            command=self._handle_plus)
-        button_plus.pack()
+        self._buttons = buttons
 
-        button_minus = tk.Button(
-            inner_container,
-            width=BUTTON_DEFAULT_WIDTH,
-            height=BUTTON_DEFAULT_HEIGHT,
-            command=self._handle_minus)
-        button_minus.pack()
+        # create container for showing stop info
 
-        inner_container.grid(row=0, column=0)
+        stop_info = StopInfo(inner_container)
+        stop_info.container().pack()
+
+        self._stop_info = stop_info
 
     def set_handler(self, handler):
-        """Set handler for signaling actions"""
+        """Sets handler for signaling actions"""
 
         self._handler = handler
-
-    def _handle_home(self):
-        self._handler.handle("map_home")
-
-    def _handle_plus(self):
-        self._handler.handle("map_plus")
-
-    def _handle_minus(self):
-        self._handler.handle("map_minus")
+        self._buttons.set_handler(handler)
 
     def stop_info(self, stop):
         print(f"Control.stop_info, stop: {stop}", flush=True)
+
+        self._selected_stop = stop
+
+        self._stop_info.set_stop(stop)
+        self._stop_info.update()
+
+    def clear_stop(self):
+        self._selected_stop = None

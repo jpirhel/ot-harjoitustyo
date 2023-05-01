@@ -156,4 +156,13 @@ class Stop(SQLObject):
 
     def coord(self):
         """Returns stop coordinate as a tuple"""
+
         return self.stop_lat, self.stop_lon
+
+    def corrected_stop_url(self):
+        """Retuns corrected stop URL for opening stop info on HSL.fi website
+
+        Stop.stop_url doesn't point to a working URL
+        """
+
+        return f"https://reittiopas.hsl.fi/pysakit/HSL%3A{self.stop_id}"
