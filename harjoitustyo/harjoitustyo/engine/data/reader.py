@@ -9,7 +9,7 @@ from ...constant import SQLITE_FILE_NAME
 
 
 class Reader:
-    """Class for reading data from SQLite database"""
+    """Class for reading data from SQLite database."""
 
     def __init__(self):
         self._log = logging.getLogger("Reader")
@@ -23,7 +23,10 @@ class Reader:
         self._log.info("Reader initialized")
 
     def read_stops(self):
-        """Reads data for all stops_data from SQLite"""
+        """Reads data for all stops_data from SQLite.
+
+        Returns: a list of instances of the class Stop
+        """
 
         sql = """
             SELECT * from stop
@@ -42,14 +45,14 @@ class Reader:
         return stops
 
     def read_stop(self, stop_id=None):
-        """Reads single stop data from SQLite"""
+        """Reads single stop data from SQLite."""
 
         if stop_id is None:
             self._log.error("Can't read stop, stop_id: %s", stop_id)
             return
 
     def _execute_sql(self, sql):
-        """Executes a single SQL statement in SQLite database"""
+        """Executes a single SQL statement in SQLite database."""
 
         self._log.info("Executing sql: %s", sql)
 

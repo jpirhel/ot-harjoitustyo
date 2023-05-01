@@ -16,7 +16,7 @@ from .sql_object import SQLObject
 # noinspection DuplicatedCode
 @dataclass
 class Trip(SQLObject):
-    """Holds information relating to a public transport trip"""
+    """Holds information relating to a public transport trip."""
 
     route_id: str
     service_id: str
@@ -30,6 +30,11 @@ class Trip(SQLObject):
 
     @staticmethod
     def from_string(obj: str):
+        """Initializes an instance of the Trip class from data string.
+
+        Returns: Instance of Trip or None
+        """
+
         parts = Trip.clean_string(obj)
 
         route_id = parts[0]

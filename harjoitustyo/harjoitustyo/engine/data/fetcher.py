@@ -2,15 +2,22 @@ import os
 import logging
 import requests
 
-
-# Data URL from https://www.hsl.fi/hsl/avoin-data
-DATA_URL = "https://infopalvelut.storage.hsldev.com/gtfs/hsl.zip"
+from harjoitustyo.constant import DATA_URL
 
 
 class Fetcher:
-    """Fetches HSL data from HTTPS url and saves it as a local temporary zip file"""
+    """Fetches HSL data from HTTPS url and saves it as a local temporary zip file."""
 
     def __init__(self, data_url=DATA_URL):
+        """Initializes the Fetcher.
+
+        Args:
+            data_url: URL for downloading the HSL data zip file
+
+        Raises:
+            AttributeError: No data url provided
+        """
+
         if not data_url:
             raise AttributeError("No data url!")
 
@@ -21,7 +28,11 @@ class Fetcher:
         self._log = logging.getLogger("DataFetcher")
 
     def fetch(self, skip_fetching=False):
-        """Fetches data zip file and saves it to a temporary location"""
+        """Fetches data zip file and saves it to a temporary location.
+
+        Args:
+            skip_fetching: Skip actually downloading the file (used for local testing)
+        """
 
         if skip_fetching:
             self._log.info("skip_fetching set, skipping fetching")

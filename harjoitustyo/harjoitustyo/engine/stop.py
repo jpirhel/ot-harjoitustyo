@@ -30,7 +30,7 @@ from .sql_object import SQLObject
 
 @dataclass
 class Stop(SQLObject):
-    """Holds information relating to a public transport Stop"""
+    """Holds information relating to a public transport Stop."""
 
     stop_id: int
     stop_code: str
@@ -48,7 +48,10 @@ class Stop(SQLObject):
 
     @staticmethod
     def from_string(obj: str):
-        """Creates a Stop object from stop data"""
+        """Creates a Stop object from stop data.
+
+        Returns: Instance of class Stop or None.
+        """
 
         parts = Stop.clean_string(obj)
 
@@ -96,7 +99,10 @@ class Stop(SQLObject):
 
     @staticmethod
     def clean_string(data_string: str):
-        """Cleans up stop line data"""
+        """Cleans up stop line data.
+
+        Returns: List of cleaned data parts.
+        """
 
         parts = data_string.split(",")
 
@@ -126,7 +132,10 @@ class Stop(SQLObject):
 
     @staticmethod
     def from_database(data):
-        """Creates Stop object from SQLite database row"""
+        """Creates Stop object from SQLite database row.
+
+        Returns: Instance of class Stop.
+        """
 
         stop = Stop(
             data[0],
@@ -148,21 +157,28 @@ class Stop(SQLObject):
 
     @property
     def lat(self):
+        """Stop latitute as a float"""
+
         return float(self.stop_lat)
 
     @property
     def lon(self):
+        """Stop longitude as a float"""
+
         return float(self.stop_lon)
 
     def coord(self):
-        """Returns stop coordinate as a tuple"""
+        """Stop coordinates as a tuple"""
 
         return self.stop_lat, self.stop_lon
 
     def corrected_stop_url(self):
-        """Retuns corrected stop URL for opening stop info on HSL.fi website
+        """Returns corrected stop URL for opening stop info on HSL.fi website.
 
-        Stop.stop_url doesn't point to a working URL
+        Stop.stop_url included in the doesn't point to a working URL, the URL generated
+        by this function is correct at the time of writing the function.
+
+        Returns: URL to Stop timetable on HSL.fi .
         """
 
         return f"https://reittiopas.hsl.fi/pysakit/HSL%3A{self.stop_id}"

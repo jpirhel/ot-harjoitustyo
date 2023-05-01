@@ -9,9 +9,20 @@ from .handler.handler import Handler
 
 
 class Ui:
+    """The visible UI of the application.
+
+    Contains the control frame on the left and the map frame on the right.
+    """
+
     control_frame_width = 300  # pixels
 
     def __init__(self, container: tk.Frame):
+        """Initializes the instance based on the tkinter container frame.
+
+        Args:
+            container: The container containing the initialized UI
+        """
+
         self._log = logging.getLogger("Ui")
 
         self._container = container
@@ -19,7 +30,7 @@ class Ui:
         width = container.winfo_width()
         height = container.winfo_height()
 
-        # create info frame (left)
+        # create control frame (left)
 
         control_frame_style = ttk.Style()
 
@@ -68,16 +79,36 @@ class Ui:
 
     # noinspection PyMethodMayBeStatic
     def _init_map(self, container) -> Map:
+        """Initializes the Map widget.
+
+        Returns:
+            Instance of the Map widget
+        """
+
         map_widget = Map(container)
 
         return map_widget
 
     # noinspection PyMethodMayBeStatic
     def _init_control(self, container):
+        """Initializes the Control widget.
+
+        Returns:
+            Instance of the Control widget
+        """
+
         control_widget = Control(container)
 
         return control_widget
 
     def _init_handler(self):
+        """Initializes the Handler widget.
+
+        The Handler widget contains callback functions for handling UI events,
+        for example button clicks.
+
+        Returns:
+            Instance of the Handler widget
+        """
         handler = Handler(self._control, self._map)
         return handler

@@ -13,7 +13,7 @@ from .sql_object import SQLObject
 
 @dataclass
 class StopTime(SQLObject):
-    """Holds information relating to a public transport stop time"""
+    """Holds information relating to a public transport stop time."""
 
     trip_id: str
     arrival_time: str
@@ -28,6 +28,11 @@ class StopTime(SQLObject):
 
     @staticmethod
     def from_string(obj: str):
+        """Initializes an instance of the StopTime class from data string.
+
+        Returns: Instance of StopTime or None
+        """
+
         parts = StopTime.clean_string(obj)
 
         trip_id = parts[0]

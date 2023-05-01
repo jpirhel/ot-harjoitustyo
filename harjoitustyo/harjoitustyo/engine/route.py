@@ -27,6 +27,12 @@ class Route(SQLObject):
 
     @staticmethod
     def from_string(obj: str):
+        """Initializes an instance of the Route class based on data string
+
+        Returns: an instance of the class Route or None
+        """
+
+        # noinspection DuplicatedCode
         parts = Route.clean_string(obj)
 
         route_id = parts[0]

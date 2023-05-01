@@ -1,5 +1,14 @@
 class SQLObject:
+    """Common functionality of all the SQL-based data types."""
+
     def as_list(self):
+        """Converts the class instance attributes into a list.
+
+        Used when inserting data into SQLite.
+
+        Returns: list of tuples of instance attributes and their values.
+        """
+
         ret = []
 
         items = vars(self).items()
@@ -12,6 +21,11 @@ class SQLObject:
 
     @staticmethod
     def clean_string(data_string: str):
+        """Cleans the data string values.
+
+        Returns: List of cleaned data parts.
+        """
+
         parts = data_string.split(",")
 
         cleaned = []

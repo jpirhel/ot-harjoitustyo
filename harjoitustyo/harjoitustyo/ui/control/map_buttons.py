@@ -4,7 +4,14 @@ from harjoitustyo.constant import BUTTON_DEFAULT_WIDTH, BUTTON_DEFAULT_HEIGHT, F
 
 
 class MapButtons:
+    """Buttons for controlling the map"""
+
     def __init__(self, container):
+        """Initializes the instance of MapButtons.
+
+        Args: tkinter frame containing the buttons
+        """
+
         self._handler = None
 
         container_width = container.winfo_width()
@@ -44,16 +51,29 @@ class MapButtons:
         self._button_container = button_container
 
     def container(self):
+        """Container containing the buttons."""
+
         return self._button_container
 
     def set_handler(self, handler):
+        """Sets the handler for UI actions."""
+
         self._handler = handler
 
     def _handle_home(self):
+        """Navigate to map home.
+
+        Map home is the default location and zoom for the map.
+        """
+
         self._handler.handle("map_home")
 
     def _handle_plus(self):
+        """Zoom in map."""
+
         self._handler.handle("map_plus")
 
     def _handle_minus(self):
+        """Zoom out map."""
+
         self._handler.handle("map_minus")

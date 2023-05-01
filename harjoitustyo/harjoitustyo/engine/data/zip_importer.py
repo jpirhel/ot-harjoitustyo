@@ -16,17 +16,27 @@ from ..trip import Trip
 
 
 class ZipImporter:
-    """Imports data from zipped data file to SQLite database
+    """Imports data from zipped data file to SQLite database.
 
     Note that this is probably a very inefficient implementation.
     """
 
+    # used to skip stop times when a stop isn't included
     _stop_ids = []
 
     _inserted_stop_times = 0
     _skipped_stop_times = 0
 
     def __init__(self, data_file=None):
+        """Initializes the ZipImporter.
+
+        Args:
+            data_file: Path of the HSL data zip file
+
+        Raises:
+            AttributeError: No data file path provided
+        """
+
         if data_file is None:
             raise AttributeError("Can't import empty file!")
 
@@ -51,7 +61,11 @@ class ZipImporter:
         self._import_data_directory()
 
     def _unzip_data_file(self):
-        """Unzips HSL data file into a temporary directory"""
+        """Unzips HSL data file into a temporary directory
+
+        Raises:
+            FileNotFoundError: The data file was not found
+        """
 
         try:
             path = pathlib.Path(self._data_file.name)
@@ -77,6 +91,8 @@ class ZipImporter:
         self._tmp_dir = tmp_dir
 
     def _import_data_directory(self):
+        """Imports the data files from the data directory."""
+
         stops_1 = "stops.txt"  # data for public transport stops
         stops_2 = "stops2.txt"  # some versions of the Zip file have a stops2.txt file
         stop_times = "stop_times.txt"  # timetables for the stops
@@ -89,9 +105,12 @@ class ZipImporter:
             self._import_file(file)
 
     def _import_file(self, file_name=None):
-        """Imports a single data file to SQLite
+        """Imports a single data file to SQLite.
 
         Inserting is done by lines separated by newline.
+
+        Raises:
+            FileNotFoundError: data file not found
         """
 
         if not file_name:
@@ -110,9 +129,9 @@ class ZipImporter:
                 self._insert_datum(file_name, line)
 
     def _initialize_sqlite(self):
-        """Initializes SQLite file for data storage
+        """Initializes SQLite file for data storage.
 
-        Creates tables for all the relevant data types
+        Creates tables for all the relevant data types.
         """
 
         # delete old SQLite file
@@ -198,7 +217,7 @@ class ZipImporter:
         cursor.execute(create_table_route)
 
     def _insert_datum(self, file_name, line):
-        """Inserts a single datum to SQLite, based on the type"""
+        """Inserts a single datum to SQLite, based on the type."""
 
         if file_name != "stop_times.txt" and self.num_inserts % 1000 == 0:
             print(f"{file_name}, total inserts: {self.num_inserts}", flush=True)
@@ -219,7 +238,7 @@ class ZipImporter:
             self._insert_route(line)
 
     def _insert_stop(self, line):
-        """Inserts a datum for single public transport stop"""
+        """Inserts a datum for single public transport stop."""
 
         stop = Stop.from_string(line)
 
@@ -275,7 +294,7 @@ class ZipImporter:
         self.num_inserts += 1
 
     def _insert_stop_time(self, line):
-        """Inserts a datum for single public transport stop time"""
+        """Inserts a datum for single public transport stop time."""
 
         stop_time = StopTime.from_string(line)
 
@@ -327,7 +346,7 @@ class ZipImporter:
         self.num_inserts += 1
 
     def _insert_route(self, line):
-        """Inserts a datum for single public transport route"""
+        """Inserts a datum for single public transport route."""
 
         route = Route.from_string(line)
 
@@ -362,7 +381,7 @@ class ZipImporter:
         self.num_inserts += 1
 
     def _insert_trip(self, line):
-        """Inserts a datum for single public transport trip"""
+        """Inserts a datum for single public transport trip."""
 
         trip = Trip.from_string(line)
 

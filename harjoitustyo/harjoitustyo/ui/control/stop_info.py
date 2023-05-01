@@ -85,12 +85,12 @@ class StopInfo:
             url_frame = tk.Frame(container, pady=10)
             url_frame.grid(row=3, column=0)
 
-            # a clickable link to HSL.fi website containing the stop timetable
+            # a clickable link to a page on the HSL.fi website containing the stop timetable
 
             url = tk.Label(url_frame, text="aikataulut (hsl.fi)", font=FONT_TEXT, fg="blue", cursor="hand2")
             url.pack()
 
-            # when button is clicked, open a new browser tab to HSL.fi
+            # when the URL is clicked, open a new browser tab to the corrected stop URL
 
             url.bind("<Button-1>", lambda e: webbrowser.open_new_tab(stop.corrected_stop_url()))
 
