@@ -1,4 +1,3 @@
-import sqlite3
 import unittest
 
 from harjoitustyo.constant import SQLITE_FILE_NAME
