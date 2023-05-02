@@ -13,6 +13,8 @@ Linkit dokumentaatioon:
 
 [Arkkitehtuuri](dokumentaatio/arkkitehtuuri.md)
 
+[Testaus](dokumentaatio/testaus.md)
+
 Linkit releaseihin:
 
 [Viikko 6 release](https://github.com/jpirhel/ot-harjoitustyo/releases/tag/viikko6)
