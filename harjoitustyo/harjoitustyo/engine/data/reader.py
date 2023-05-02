@@ -56,12 +56,11 @@ class Reader:
             stop_id: id for the Stop
 
         Returns: an instance of the Stop class or None
-
         """
 
         if stop_id is None:
             self._log.error("Can't read stop, stop_id: %s", stop_id)
-            return
+            return None
 
         sql = """
             SELECT * from stop where id=?
