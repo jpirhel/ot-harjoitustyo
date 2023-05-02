@@ -37,3 +37,15 @@
 - implementoitu pysäkkien markerien piirto karttapohjaan
 - tehty laaduntarkkailuun liittyviä korjauksia (pylint jne.)
 - lisätty testien määrää
+
+
+## Viikko 6
+
+- parannettu dokumentaatiota
+  - lisätty docstringit
+- lisätty testejä
+- parannettu käyttöliittymää
+  - karttaa ohjaavien buttonien tekstit
+  - vasemman (control) framen layout
+  - callback joka näyttää pysäkin tiedot
+  - pysäkin tietoja kontrollinäkymässä
