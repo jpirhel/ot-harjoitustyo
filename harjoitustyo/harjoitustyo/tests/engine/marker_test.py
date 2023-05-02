@@ -5,10 +5,10 @@ from harjoitustyo.engine.marker import Marker
 
 
 class TestMarker(unittest.TestCase):
-    """Test the functionality of the Marker data class"""
+    """Tests the functionality of the Marker data class."""
 
     def setUp(self):
-        """Initialize Stop data class from provided data and use the data to create the Marker data class instance"""
+        """Initializes Stop data class from provided data and use the data to create the Marker data class instance."""
 
         stop_data = """1230109,H3037,"Kumpulan kampus","Hämeentie",60.203120,24.967300,A,http://aikataulut.hsl.fi/pysakit/fi/1230109.html,0, ,2, ,3"""
         stop = Stop.from_string(stop_data)

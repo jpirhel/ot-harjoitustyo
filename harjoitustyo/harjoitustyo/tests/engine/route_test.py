@@ -4,10 +4,10 @@ from harjoitustyo.engine.route import Route
 
 
 class TestRoute(unittest.TestCase):
-    """Test the functionality of the Route data class"""
+    """Tests the functionality of the Route data class."""
 
     def setUp(self):
-        """Initialize Route data class from provided data and use the data to create the Route data class instance"""
+        """Initializes Route data class from provided data and use the data to create the Route data class instance."""
 
         route_data = """1001,HSL,1,Eira - Töölö - Sörnäinen (M) - Vallila,,0,http://aikataulut.hsl.fi/linjat/fi/h1_1a.html"""
         route = Route.from_string(route_data)

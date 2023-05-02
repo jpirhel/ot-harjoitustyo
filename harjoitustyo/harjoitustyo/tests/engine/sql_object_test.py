@@ -4,11 +4,16 @@ from harjoitustyo.engine.route import Route
 
 
 class TestSqlObject(unittest.TestCase):
+    """Tests the functionality of the SqlObject class."""
+
     def setUp(self):
+        """Initializes a Route object to test the inherited SQLObject class."""
+
         # Route inherits from SQLObject
 
         route_data = """1001,HSL,1,Eira - Töölö - Sörnäinen (M) - Vallila,,0,http://aikataulut.hsl.fi/linjat/fi/h1_1a.html"""
         route = Route.from_string(route_data)
+
         self.route = route
 
     def test_as_list(self):
