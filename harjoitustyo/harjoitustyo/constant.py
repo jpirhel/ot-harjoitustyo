@@ -4,6 +4,8 @@
 
 DATA_URL = "https://infopalvelut.storage.hsldev.com/gtfs/hsl.zip"
 
+DATA_FILE_NAME = "HSL.zip"
+
 # set to true to skip actually downloading the data file
 
 SKIP_FETCHING = False

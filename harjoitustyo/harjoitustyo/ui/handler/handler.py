@@ -1,5 +1,6 @@
 import logging
 
+from harjoitustyo.constant import SQLITE_FILE_NAME
 from harjoitustyo.engine.data.reader import Reader
 
 
@@ -12,7 +13,7 @@ class Handler:
         self._control = control
         self._map = map_
 
-        self._reader = Reader()
+        self._reader = Reader(file_name=SQLITE_FILE_NAME)
 
         stops = self._reader.read_stops()
 
