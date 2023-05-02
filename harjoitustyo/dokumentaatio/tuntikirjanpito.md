@@ -26,3 +26,7 @@ Ei käytetty ajanhallintaohjelmistoa (time tracker).
 2023-04-20	3h (suunnittelua & ohjelmointia, ei commiteja, kumulatiivinen: 20h)
 2023-04-25	5h, (kumulatiivinen: 25h)
 
+### Viikko 6
+
+2023-05-01  4h (kumulatiivinen: 29h)
+2023-05-02  3h (kumulatiivinen: 32h)
