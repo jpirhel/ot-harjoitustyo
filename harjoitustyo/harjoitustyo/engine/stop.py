@@ -157,7 +157,7 @@ class Stop(SQLObject):
 
     @property
     def lat(self):
-        """Stop latitute as a float"""
+        """Stop latitude as a float"""
 
         return float(self.stop_lat)
 
