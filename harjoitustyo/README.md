@@ -7,13 +7,18 @@ Linkit dokumentaatioon:
 
 [Changelog](dokumentaatio/changelog.md)
 
+[Käyttöohje](dokumentaatio/kayttoohje.md)
+
 [Vaatimusmäärittely](dokumentaatio/vaatimusmaarittely.md)
 
 [Arkkitehtuuri](dokumentaatio/arkkitehtuuri.md)
 
 Linkit releaseihin:
 
+[Viikko 6 release](https://github.com/jpirhel/ot-harjoitustyo/releases/tag/viikko6)
+
 [Viikko 5 release](https://github.com/jpirhel/ot-harjoitustyo/releases/tag/viikko5)
+
 
 [kaikki releaset](https://github.com/jpirhel/ot-harjoitustyo/releases/)
 
