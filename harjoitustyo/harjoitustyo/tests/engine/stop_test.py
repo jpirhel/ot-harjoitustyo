@@ -57,3 +57,31 @@ class TestStop(unittest.TestCase):
 
         self.assertIsInstance(lat, float)
         self.assertIsInstance(lon, float)
+
+    def test_stop_creation_from_database_data(self):
+        data = [
+            "1010107",
+            "H2014",
+            "Meritullinkatu",
+            "Liisankatu",
+            "60.174128",
+            "24.955551",
+            "A",
+            "http://aikataulut.hsl.fi/pysakit/fi/1010107.html",
+            "0",
+            "",
+            "2",
+            "",
+            "3"
+        ]
+
+        stop = Stop.from_database(data)
+
+        self.assertIsInstance(stop, Stop)
+
+    def test_corrected_stop_url(self):
+        correct_url = "https://reittiopas.hsl.fi/pysakit/HSL%3A1230109"
+
+        stop_url = self.stop.corrected_stop_url()
+
+        self.assertEqual(correct_url, stop_url)
