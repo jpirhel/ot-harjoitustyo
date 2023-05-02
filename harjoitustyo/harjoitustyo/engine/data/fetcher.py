@@ -2,7 +2,7 @@ import os
 import logging
 import requests
 
-from harjoitustyo.constant import DATA_URL
+from harjoitustyo.constant import DATA_URL, DATA_FILE_NAME
 
 
 class Fetcher:
@@ -38,7 +38,7 @@ class Fetcher:
             self._log.info("skip_fetching set, skipping fetching")
             return
 
-        tmp_file_name = "HSL.zip"
+        tmp_file_name = DATA_FILE_NAME
 
         timeout = 60  # seconds
 

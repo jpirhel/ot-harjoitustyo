@@ -16,13 +16,17 @@ class Importer:
     def __init__(self):
         self._log = logging.getLogger("Importer")
 
-    def import_data(self):
-        """Fetches and imports data into SQLite file."""
+    def import_data(self, skip_fetching=SKIP_FETCHING, skip_importing=False):
+        """Fetches and imports data into SQLite file.
+
+        Args:
+            skip_fetching: Skip actual fetching of data from the Web
+            skip_importing: Skip actual importing of data into SQLite database
+
+        Returns: True on success
+        """
 
         self._log.info("Importing data...")
-
-        # set to True to skip fetching when testing locally
-        skip_fetching = SKIP_FETCHING
 
         fetcher = Fetcher()
         fetcher.fetch(skip_fetching=skip_fetching)
@@ -31,7 +35,13 @@ class Importer:
 
         self._log.info("Zip file: %s", zip_filename)
 
-        zip_importer = ZipImporter(data_file=zip_filename)
-        zip_importer.import_data()
+        if skip_importing is False:
+            # Actually import the data from the zip file to the SQLite database.
+            # NOTE: This might take a long time (tens of minutes).
+
+            zip_importer = ZipImporter(data_file=zip_filename)
+            zip_importer.import_data()
 
         self._log.info("...Done.")
+
+        return True
