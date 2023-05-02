@@ -51,6 +51,11 @@ def test(ctx):
 
 
 @task
+def test_verbose(ctx):
+    ctx.run(f"{python_executable} -m pytest -v harjoitustyo/", pty=pty)
+
+
+@task
 def coverage(ctx):
     ctx.run("coverage run --branch -m pytest", pty=pty)
 
