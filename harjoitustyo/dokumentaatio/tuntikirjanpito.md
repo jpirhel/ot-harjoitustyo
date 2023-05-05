@@ -30,3 +30,7 @@ Ei käytetty ajanhallintaohjelmistoa (time tracker).
 
 2023-05-01  4h (kumulatiivinen: 29h)
 2023-05-02  3h (kumulatiivinen: 32h)
+
+### Viikko 7
+
+2023-05-05  3h (kumulatiivinen: 35h)
