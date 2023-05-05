@@ -104,4 +104,7 @@ class StopTime(SQLObject):
         return stop_time
 
     def __repr__(self):
-        return f"{self.stop_id, self.route_short_name}"
+        if hasattr(self, "route_short_name"):
+            return f"{self.stop_id, self.route_short_name}"
+        else:
+            return f"{self.stop_id}"
