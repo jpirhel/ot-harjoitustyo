@@ -6,7 +6,8 @@ class SQLObject:
 
         Used when inserting data into SQLite.
 
-        Returns: list of tuples of instance attributes and their values.
+        Returns:
+             list of tuples of instance attributes and their values.
         """
 
         ret = []
@@ -23,7 +24,8 @@ class SQLObject:
     def clean_string(data_string: str):
         """Cleans the data string values.
 
-        Returns: List of cleaned data parts.
+        Returns:
+             List of cleaned data parts.
         """
 
         parts = data_string.split(",")

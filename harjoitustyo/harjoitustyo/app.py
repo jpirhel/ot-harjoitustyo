@@ -62,7 +62,8 @@ class App:
     def _init_ui_container(self) -> ttk.Frame:
         """Initializes the tkinter container for app UI.
 
-        Returns: tkinter frame containing the UI
+        Returns:
+             tkinter frame containing the UI
         """
 
         width = self._root.winfo_width()
@@ -80,7 +81,8 @@ class App:
     def _init_ui(self) -> Ui:
         """Initializes the UI.
 
-        Returns: Instance of the UI class representing the UI
+        Returns:
+             Instance of the UI class representing the UI
         """
 
         return Ui(self._container)

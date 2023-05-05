@@ -3,19 +3,14 @@ import tkinter as tk
 
 from harjoitustyo.constant import FONT_HEADER, FONT_TEXT
 
+from harjoitustyo.ui.control.stop_container import StopContainer
 
-class StopInfo:
+
+class StopInfo(StopContainer):
     """Displays information about public transport stops"""
 
-    def __init__(self, container):
-        self._stop = None
-
-        self._container = container
-
-        self._generate_inner_container()
-
     def _generate_inner_container(self):
-        """Generates a inner container including all the stop related info"""
+        """Generates an inner container including all the stop related info"""
 
         inner_container = tk.Frame(self._container)
 
@@ -29,31 +24,10 @@ class StopInfo:
 
         inner_container.pack(pady=10)
 
-    def container(self):
-        return self._inner_container
-
-    def update(self):
-        """Updates the stop view, used top update displayed UI when a new stop is selected"""
-
-        # NOTE this is probably very inefficient
-
-        # destroy previous container
-
-        self._inner_container.destroy()
-
-        # generate new container
-
-        self._generate_inner_container()
-
-    def set_stop(self, stop):
-        """Sets the currently selected stop"""
-
-        self._stop = stop
-
     def _stop_info(self):
         """Displays stop info for a selected stop or help text when no stop is selected"""
 
-        container = tk.Frame(self._inner_container, highlightthickness="2", highlightcolor="red")
+        container = tk.Frame(self._inner_container)
 
         stop = self._stop
 

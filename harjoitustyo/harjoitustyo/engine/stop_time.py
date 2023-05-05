@@ -1,6 +1,7 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from .sql_object import SQLObject
+
 
 # pylint: disable=line-too-long
 # reasoning: these are examples of lines from actual data, and they are long
@@ -15,22 +16,25 @@ from .sql_object import SQLObject
 class StopTime(SQLObject):
     """Holds information relating to a public transport stop time."""
 
-    trip_id: str
-    arrival_time: str
-    departure_time: str
-    stop_id: str
-    stop_sequence: str
-    stop_headsign: str
-    pickup_type: str
-    drop_off_type: str
-    shape_dist_traveled: str
-    timepoint: str
+    trip_id: str = field()
+    arrival_time: str = field()
+    departure_time: str = field()
+    stop_id: str = field()
+    stop_sequence: str = field()
+    stop_headsign: str = field()
+    pickup_type: str = field()
+    drop_off_type: str = field()
+    shape_dist_traveled: str = field()
+    timepoint: str = field()
+
+    route_short_name: str = field(init=False)
 
     @staticmethod
     def from_string(obj: str):
         """Initializes an instance of the StopTime class from data string.
 
-        Returns: Instance of StopTime or None
+        Returns:
+             Instance of StopTime or None
         """
 
         parts = StopTime.clean_string(obj)
@@ -64,3 +68,40 @@ class StopTime(SQLObject):
         )
 
         return obj
+
+    @staticmethod
+    def from_database(data):
+        """Creates StopTime object from SQLite database row.
+
+        Returns:
+             Instance of class StopTime.
+        """
+
+        stop_time = StopTime(*data)
+
+        return stop_time
+
+    @staticmethod
+    def from_database_with_route_short_name(data):
+        """Creates StopTime object from SQLite database row.
+
+        Adds a short route name to the object.
+
+        Returns:
+             Instance of class StopTime.
+        """
+
+        # last element of the tuple
+        route_short_name = data[10]
+
+        # remove last element of the data tuple
+        data = data[:len(data) - 1]
+
+        stop_time = StopTime.from_database(data)
+
+        stop_time.route_short_name = route_short_name
+
+        return stop_time
+
+    def __repr__(self):
+        return f"{self.stop_id, self.route_short_name}"

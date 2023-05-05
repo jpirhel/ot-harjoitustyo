@@ -65,4 +65,4 @@ class Handler:
     def _handle_map_marker_clicked(self, marker, stop):
         """Display info on a stop when a stop marker displayed on the map is clicked."""
 
-        self._control.stop_info(stop)
+        self._control.stop_info_with_timetable(stop)

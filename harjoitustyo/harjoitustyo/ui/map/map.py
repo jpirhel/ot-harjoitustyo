@@ -15,7 +15,7 @@ class Map:
         self._container = container
         self._handler = None
 
-        self._log = logging.getLogger("App.Ui.Map")
+        self._log = logging.getLogger("Map")
 
         self._lat = KUMPULA_LAT
         self._lon = KUMPULA_LON

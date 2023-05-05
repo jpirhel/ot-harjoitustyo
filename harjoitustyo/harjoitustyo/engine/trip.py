@@ -32,7 +32,8 @@ class Trip(SQLObject):
     def from_string(obj: str):
         """Initializes an instance of the Trip class from data string.
 
-        Returns: Instance of Trip or None
+        Returns:
+             Instance of Trip or None
         """
 
         parts = Trip.clean_string(obj)

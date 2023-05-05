@@ -29,7 +29,8 @@ class Route(SQLObject):
     def from_string(obj: str):
         """Initializes an instance of the Route class based on data string
 
-        Returns: an instance of the class Route or None
+        Returns:
+             an instance of the class Route or None
         """
 
         # noinspection DuplicatedCode

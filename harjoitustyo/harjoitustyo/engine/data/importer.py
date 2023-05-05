@@ -23,7 +23,8 @@ class Importer:
             skip_fetching: Skip actual fetching of data from the Web
             skip_importing: Skip actual importing of data into SQLite database
 
-        Returns: True on success
+        Returns:
+             True on success
         """
 
         self._log.info("Importing data...")

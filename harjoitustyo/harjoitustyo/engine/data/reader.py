@@ -2,8 +2,7 @@ import logging
 import sqlite3
 
 from ..stop import Stop
-# from ..trip import Trip
-# from ..route import Route
+from ..stop_time import StopTime
 
 from ...constant import SQLITE_FILE_NAME
 
@@ -28,9 +27,10 @@ class Reader:
                 "Failed to connect to sqlite database: %s", file_name)
 
     def read_stops(self):
-        """Reads data for all stops_data from SQLite.
+        """Reads data for all stops from SQLite.
 
-        Returns: a list of instances of the class Stop
+        Returns:
+             a list of instances of the class Stop
         """
 
         sql = """
@@ -55,7 +55,8 @@ class Reader:
         Args:
             stop_id: id for the Stop
 
-        Returns: an instance of the Stop class or None
+        Returns:
+            an instance of the Stop class or None
         """
 
         if stop_id is None:
@@ -72,6 +73,59 @@ class Reader:
         stop = Stop.from_database(data)
 
         return stop
+
+    def read_stop_times(self, stop=None):
+        """Reads stop data for a stop from SQLite.
+
+        Args:
+            stop: a single Stop
+
+        Returns:
+            a list of instances of the class StopTime
+        """
+
+        if stop is None:
+            self._log.error("Can't read stop times, stop: %s", stop)
+            return None
+
+        sql = """
+
+        SELECT
+            stop_time.trip_id,
+            stop_time.arrival_time,
+            stop_time.departure_time,
+            stop_time.stop_id,
+            stop_time.stop_sequence,
+            stop_time.stop_headsign,
+            stop_time.pickup_type,
+            stop_time.drop_off_type,
+            stop_time.shape_dist_traveled,
+            stop_time.timepoint,
+            route.route_short_name
+
+        FROM stop_time
+
+        JOIN trip
+        ON stop_time.trip_id = trip.trip_id
+
+        JOIN route
+        ON trip.route_id = route.route_id
+
+        WHERE stop_id = (SELECT id FROM stop WHERE stop_code = ?)
+
+        """
+
+        res = self._execute_sql(sql, (stop.stop_code,))
+
+        data = res.fetchall()
+
+        stop_times = []
+
+        for datum in data:
+            stop_time = StopTime.from_database_with_route_short_name(datum)
+            stop_times.append(stop_time)
+
+        return stop_times
 
     def _execute_sql(self, sql, sql_args=None):
         """Executes a single SQL statement in the SQLite database.
