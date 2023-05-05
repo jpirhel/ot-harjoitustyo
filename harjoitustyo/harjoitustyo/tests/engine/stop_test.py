@@ -7,13 +7,19 @@ class TestStop(unittest.TestCase):
     """Tests the functionality of the Stop data class."""
 
     def setUp(self):
-        """Initializes an instance of the Stop data class from provided data."""
+        """Initializes the required Stop instances."""
+
+        # instance from string data
 
         stop_data = """1230109,H3037,"Kumpulan kampus","Hämeentie",60.203120,24.967300,A,http://aikataulut.hsl.fi/pysakit/fi/1230109.html,0, ,2, ,3"""
         self.stop = Stop.from_string(stop_data)
 
+        # instance from header data
+
         header_data = """stop_id,stop_code,stop_name,stop_desc,stop_lat,stop_lon,zone_id,stop_url,location_type,parent_station,wheelchair_boarding,platform_code,vehicle_type"""
         self.header = Stop.from_string(header_data)
+
+        # instance from string data with an element containing a comma (length 14)
 
         len14_data = """1040289,H1260,"Kamppi, tulo","Kamppi",60.168800,24.930120,A,http://aikataulut.hsl.fi/pysakit/fi/1040289.html,0,1000001,0, ,3"""
         self.len14_stop = Stop.from_string(len14_data)
