@@ -1,3 +1,4 @@
+import logging
 import webbrowser
 import tkinter as tk
 
@@ -8,6 +9,11 @@ from harjoitustyo.ui.control.stop_container import StopContainer
 
 class StopInfo(StopContainer):
     """Displays information about public transport stops"""
+
+    def __init__(self, container):
+        self._log = logging.getLogger("StopInfo")
+
+        super().__init__(container, self._log)
 
     def _generate_inner_container(self):
         """Generates an inner container including all the stop related info"""

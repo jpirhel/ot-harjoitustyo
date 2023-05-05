@@ -4,11 +4,13 @@ class StopContainer:
     Updatable by calling the method update().
     """
 
-    def __init__(self, container):
+    def __init__(self, container, log):
         """Initializes the stop, outer container and inner container.
 
         Also initializes the initial inner container.
         """
+
+        self._log = log
 
         self._stop = None
 

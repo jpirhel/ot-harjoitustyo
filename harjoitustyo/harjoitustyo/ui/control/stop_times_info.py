@@ -13,11 +13,11 @@ class StopTimesInfo(StopContainer):
     def __init__(self, container):
         """Initializes the class with an empty private variable for stop times"""
 
-        super().__init__(container)
+        self._log = logging.getLogger("StopTimesInfo")
+
+        super().__init__(container, self._log)
 
         self._stop_times = None
-
-        self._log = logging.getLogger("StopTimesInfo")
 
     def set_stop_times(self, stop_times):
         """Sets the stop times"""
