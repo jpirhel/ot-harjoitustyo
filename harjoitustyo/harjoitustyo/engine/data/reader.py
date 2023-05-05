@@ -75,7 +75,7 @@ class Reader:
         return stop
 
     def read_stop_times(self, stop=None):
-        """Reads stop data for a stop from SQLite.
+        """Reads stop timetable data for a single stop from SQLite.
 
         Args:
             stop: a single Stop
