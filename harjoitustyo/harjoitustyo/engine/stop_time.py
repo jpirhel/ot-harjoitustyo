@@ -78,28 +78,9 @@ class StopTime(SQLObject):
 
         weekday = split[2].lower()
 
-        # monday
-        if weekday == "ma":
-            return 0
+        # monday to friday
 
-        # tuesday
-
-        if weekday == "ti":
-            return 0
-
-        # wednesday
-
-        if weekday == "ke":
-            return 0
-
-        # thursday
-
-        if weekday == "to":
-            return 0
-
-        # friday
-
-        if weekday == "pe":
+        if weekday in ("ma", "ti", "ke", "to", "pe"):
             return 0
 
         # saturday
@@ -111,6 +92,8 @@ class StopTime(SQLObject):
 
         if weekday == "su":
             return 6
+
+        return ERROR_WEEKDAY
 
     def hour(self):
         try:
