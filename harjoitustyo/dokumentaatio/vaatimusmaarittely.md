@@ -2,18 +2,18 @@
 
 ## Todo-lista
 
-- pysäkin aikataulutiedot
-- reaaliaikainen minuutteja bussin tuloon -näkymä
+- **TEHTY** pysäkin aikataulutiedot
+- **TEHTY** (reaaliaikainen) minuutteja bussin tuloon -näkymä
 - <s>minkä pysäkin kohdalla ko. linjan kulkuneuvo on</s> (ei toteuteta)
 - **TEHTY**: kartta
 - **TEHTY**: kartan zoom
 - <s>suosikit alasvetovalikkoineen</s> (ei toteuteta)
 - <s>vapaatekstihaku</s> (ei toteuteta)
 - **TEHTY**: testattu sekä Linuxilla että Windowsilla
-- graafinen käyttöliittymä (tkinter)
+- **TEHTY** graafinen käyttöliittymä (tkinter)
 - **TEHTY**: ei-reaaliaikainen HSL-pysäkkidata tietokantaan
-- valitun pysäkin tallennus suljettaessa sovellus
-- kartan position ja zoomin tallennus suljettaessa sovellus
+- <s>valitun pysäkin tallennus suljettaessa sovellus</s> (ei toteuteta)
+- <s>kartan position ja zoomin tallennus suljettaessa sovellus</s> (ei toteuteta)
 
 ## Sovelluksen käyttötarkoitus
 
@@ -22,10 +22,7 @@ sekä joukkoliikennelinjoilta.
 
 Sovellukseen kuuluu karttapohja, jonka avulla voi valita Helsingin Seudun Liikenteen alueella
 pysäkkejä. Kun pysäkki on valittu, esitetään kyseisen pysäkin aikataulun tiedot. Aikataulutiedoissa näkyy, kuinka monen
-minuutin päästä kyseiselle pysäkille on tulossa busseja.
-
-Pysäkkien lisäksi sovelluksessa on mahdollista valita joukkoliikenteen linjoja, sekä saada näistä aikataulutietoja.
-Sovellus laskee, minkä pysäkin kohdalla ko. linjan kulkuneuvo on. 
+minuutin päästä kyseiselle pysäkille on tulossa busseja tai muita joukkoliikennevälineitä.
 
 ## Käyttöliittymä
 
@@ -38,8 +35,10 @@ karttaa.
 
 ## Toiminnallisuus
 
-Sovellukseen on mahdollista tallentaa sekä pysäkkejä että bussilinjoja suosikeiksi. Suosikit ovat valittavissa helposti
-alasvetovalikosta. Tämän lisäksi sekä pysäkkejä että linjoja on mahdollista hakea vapaatekstihaulla tiedoista.
+Klikkaamalla karttanäkymässä olevaa pysäkin kuvaketta, näytetään kulloinkin valitun pysäkin tiedot vasemmalla olevassa 
+näkymässä. Tämä näkymä laskee, kuinka kauan klikkaushetkestä kestää joukkoliikennevälineen saapumiseen. 
+
+Sovellus tarjoilee pysäkkikohtaisen linkin HSL.fi:hin, josta näkyy tarkemmat pysäkkiaikataulut.
 
 ## Toteutus
 
@@ -51,6 +50,13 @@ linjatietoa.
 
 ## Jatkokehitysideoita
 
-Mikäli sovellukseen halutaan sisällyttää HSL:n reaaliaikaisen rajapinnan kutsumahdollisuus avaimineen, on mahdollista 
-näyttää pysäkkikohtaiset aikataulut, jotka sisältävät normaaliaikataulusta muuttuneet tiedot (joukkoliikennevälineen 
-myöhästyminen, muutokset korjaustöiden tai muiden häiriöiden takia jne.). 
+HSL:n tietojen rakenne on melko monimutkainen, ja tähän sovellukseen käytetyn aikataulun puitteissa siihen ei keretty
+tutustumaan kunnolla. Sovelluksen näyttämät tiedot eivät vastaa HSL.fi:ssä olevia, joten niitä voi pitää lähinnä 
+esimerkkinä siitä, miten sovelluksen voisi toteuttaa.
+
+Tämä on varsin suuri puute, jonka korjaaminen olisi tärkeää sovelluksen oikean toiminnallisuuden kannalta. 
+Jatkokehityksen kannalta tosin järjevämpää lienisi HSL:n reaaliaikaisen rajapinnan käyttö. Tätä ei toteutettu, koska
+ko. rajapinnan käyttö vaatisi API-avaimen, jota ei halutta sovellukseen sisällyttää.
+
+Reaaliaikaisella rajapinnalla sovellukseen voisi pysäkkikohtaisten aikataulujen lisäksi integroida normaaliaikataulusta
+muuttuneet tiedot (joukkoliikennevälineen myöhästyminen, muutokset korjaustöiden tai muiden häiriöiden takia jne.).  
