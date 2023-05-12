@@ -104,8 +104,3 @@ class Control:
         self._stop_times_info.set_stop_times(stop_times)
 
         self._stop_times_info.update()
-
-    def clear_stop(self):
-        """Clears the currently selected Stop."""
-
-        self._selected_stop = None
