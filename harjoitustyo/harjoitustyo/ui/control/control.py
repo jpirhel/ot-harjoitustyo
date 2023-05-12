@@ -5,7 +5,7 @@ from .map_buttons import MapButtons
 from .stop_info import StopInfo
 from .stop_times_info import StopTimesInfo
 
-from ...constant import SQLITE_FILE_NAME
+from ...constant import SQLITE_FILE_NAME, UI_LEFT_FRAME_WIDTH
 from ...engine.data.reader import Reader
 
 
@@ -15,7 +15,7 @@ class Control:
     Contains elements for controlling the map and displaying Stop info.
     """
 
-    _inner_container_width = 200
+    _inner_container_width = UI_LEFT_FRAME_WIDTH
     _selected_stop = None
 
     def __init__(self, container):

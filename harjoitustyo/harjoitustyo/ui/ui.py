@@ -6,6 +6,7 @@ import tkinter.ttk as ttk
 from .map.map import Map
 from .control.control import Control
 from .handler.handler import Handler
+from ..constant import UI_CONTROL_FRAME_WIDTH
 
 
 class Ui:
@@ -14,7 +15,7 @@ class Ui:
     Contains the control frame on the left and the map frame on the right.
     """
 
-    control_frame_width = 300  # pixels
+    control_frame_width = UI_CONTROL_FRAME_WIDTH
 
     def __init__(self, container: tk.Frame):
         """Initializes the instance based on the tkinter container frame.
