@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 
 from .sql_object import SQLObject
-from ..constant import ERROR_WEEKDAY
+from ..constant import ERROR_WEEKDAY, ERROR_TIME
 
 
 # pylint: disable=line-too-long
@@ -110,12 +110,10 @@ class StopTime(SQLObject):
 
         try:
             split = self.trip_id.split("_")
+            time = split[4]
+            hours = time[0:2]
         except IndexError:
-            return "00"
-
-        time = split[4]
-
-        hours = time[0:2]
+            return ERROR_TIME
 
         return int(hours)
 
@@ -128,12 +126,10 @@ class StopTime(SQLObject):
 
         try:
             split = self.trip_id.split("_")
+            time = split[4]
+            minutes = time[2:4]
         except IndexError:
-            return "00"
-
-        time = split[4]
-
-        minutes = time[2:4]
+            return ERROR_TIME
 
         return int(minutes)
 
@@ -146,13 +142,16 @@ class StopTime(SQLObject):
 
         try:
             split = self.trip_id.split("_")
+
+            time = split[4]
+
+            hours = time[0:2]
+            minutes = time[2:4]
         except IndexError:
-            return "00:00"
+            return f"{ERROR_TIME}:{ERROR_TIME}"
 
-        time = split[4]
-
-        hours = time[0:2]
-        minutes = time[2:4]
+        # if hours are above 24, the day has changed
+        # the data contains hours like this
 
         if int(hours) >= 24:
             hours = f"0{int(hours) - 24}"
