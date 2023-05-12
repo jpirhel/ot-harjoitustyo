@@ -37,13 +37,13 @@ class StopTimesInfo(StopContainer):
         # empty element if no stop is selected
 
         if self._stop is None:
-            self._log.error("Can't generate inner container, empty stop")
+            self._log.info("Can't generate inner container, empty stop")
             return
 
         # empty element if stop times are not available
 
         if self._stop_times is None:
-            self._log.error("Can't generate inner container, empty stop times")
+            self._log.info("Can't generate inner container, empty stop times")
             return
 
         label = tk.Label(inner_container, text="aikataulut", font=FONT_HEADER)

@@ -29,9 +29,6 @@ class Handler:
             data2: additional information (for example stop data)
         """
 
-        print("Handler.handle, name=%s, data=%s, data2=%s" %
-              (name, data, data2), flush=True)
-
         if name is None:
             self._log.error("Failed to handle name: %s, data: %s", name, data)
 
