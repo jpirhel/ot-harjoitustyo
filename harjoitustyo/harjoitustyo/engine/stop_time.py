@@ -80,7 +80,7 @@ class StopTime(SQLObject):
         """
         try:
             split = self.trip_id.split("_")
-        except ValueError:
+        except IndexError:
             return ERROR_WEEKDAY  # will not match today's weekday
 
         weekday = split[2].lower()
@@ -111,7 +111,7 @@ class StopTime(SQLObject):
 
         try:
             split = self.trip_id.split("_")
-        except ValueError:
+        except IndexError:
             return "00"
 
         time = split[4]
