@@ -129,7 +129,7 @@ class StopTime(SQLObject):
 
         try:
             split = self.trip_id.split("_")
-        except ValueError:
+        except IndexError:
             return "00"
 
         time = split[4]
@@ -147,7 +147,7 @@ class StopTime(SQLObject):
 
         try:
             split = self.trip_id.split("_")
-        except ValueError:
+        except IndexError:
             return "00:00"
 
         time = split[4]
