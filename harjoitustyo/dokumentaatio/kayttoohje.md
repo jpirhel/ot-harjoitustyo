@@ -14,6 +14,5 @@ Sovelluksen avautuessa avautuu karttanäkymä, jossa näkyy keskellä Kumpulan k
 kuvaavat joukkoliikenteen pysäkkejä. Klikkaamalla pysäkin markeria, vasemmalle avautuu sovelluksen tiedot sekä tiedot 
 pysäkille tulevista joukkoliikenteen kulkuvälineistä. 
 
-Sovellus tallentaa sovellusta suljettaessa senhetkisen kartan sijainnin ja zoom-tason sekä aktiivisen pysäkin. 
-Seuraavalla käynnistyskerralla nämä tiedot ladataan, joten jos käyttää usein tiettyä pysäkkiä, voi käyttää tätä 
-sovellusta tarkastaakseen saapuvat bussit nopeasti.
+Aikataulunäkymästä ilmenee kulkuväline, saapumisaika ja kesto saapumiseen pysäkille. Klikkaamalla uutta pysäkin kuvaketta, 
+näkymä vaihtuu vastaamaan ko. pysäkin aikataulua.
