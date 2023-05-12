@@ -46,8 +46,12 @@ FONT_HEADER = ("Arial", 18)
 WINDOW_INITIAL_WIDTH = 1000
 WINDOW_INITIAL_HEIGHT = 750
 
+# error constants - used to signal erroneous values
+
 ERROR_WEEKDAY = 100
 ERROR_TIME = 99
+
+# UI left frame width
 
 UI_LEFT_FRAME_WIDTH = 240
 UI_CONTROL_FRAME_WIDTH = 340
