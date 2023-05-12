@@ -71,6 +71,13 @@ class StopTime(SQLObject):
         return obj
 
     def weekday(self):
+        """Stop time weekday.
+
+        Returns:
+            0 for Monday through Friday,
+            5 for Saturday,
+            6 for Sunday
+        """
         try:
             split = self.trip_id.split("_")
         except ValueError:
@@ -78,17 +85,17 @@ class StopTime(SQLObject):
 
         weekday = split[2].lower()
 
-        # monday to friday
+        # Monday to Friday
 
         if weekday in ("ma", "ti", "ke", "to", "pe"):
             return 0
 
-        # saturday
+        # Saturday
 
         if weekday == "la":
             return 5
 
-        # sunday
+        # Sunday
 
         if weekday == "su":
             return 6
@@ -96,6 +103,12 @@ class StopTime(SQLObject):
         return ERROR_WEEKDAY
 
     def hour(self):
+        """Stop time arrival hour.
+
+        Returns:
+            Hour as an integer
+        """
+
         try:
             split = self.trip_id.split("_")
         except ValueError:
@@ -108,6 +121,12 @@ class StopTime(SQLObject):
         return int(hours)
 
     def minute(self):
+        """Stop time arrival minute.
+
+        Returns:
+            Minute as an integer
+        """
+
         try:
             split = self.trip_id.split("_")
         except ValueError:
@@ -120,7 +139,11 @@ class StopTime(SQLObject):
         return int(minutes)
 
     def display_time(self):
-        """Returns the stop time in a format suitable for display"""
+        """Stop time in a format suitable for display.
+
+        Returns:
+            Displayable time as a string
+        """
 
         try:
             split = self.trip_id.split("_")
@@ -170,9 +193,3 @@ class StopTime(SQLObject):
         stop_time.route_short_name = route_short_name
 
         return stop_time
-
-    def __repr__(self):
-        if hasattr(self, "route_short_name"):
-            return f"{self.route_short_name}-{self.trip_id}"
-
-        return f"{self.stop_id}"
