@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 
 from .sql_object import SQLObject
+from ..constant import ERROR_WEEKDAY
 
 
 # pylint: disable=line-too-long
@@ -69,6 +70,90 @@ class StopTime(SQLObject):
 
         return obj
 
+    def weekday(self):
+        try:
+            split = self.trip_id.split("_")
+        except ValueError:
+            return ERROR_WEEKDAY  # will not match today's weekday
+
+        weekday = split[2].lower()
+
+        # monday
+        if weekday == "ma":
+            return 0
+
+        # tuesday
+
+        if weekday == "ti":
+            return 0
+
+        # wednesday
+
+        if weekday == "ke":
+            return 0
+
+        # thursday
+
+        if weekday == "to":
+            return 0
+
+        # friday
+
+        if weekday == "pe":
+            return 0
+
+        # saturday
+
+        if weekday == "la":
+            return 5
+
+        # sunday
+
+        if weekday == "su":
+            return 6
+
+    def hour(self):
+        try:
+            split = self.trip_id.split("_")
+        except ValueError:
+            return "00"
+
+        time = split[4]
+
+        hours = time[0:2]
+
+        return int(hours)
+
+    def minute(self):
+        try:
+            split = self.trip_id.split("_")
+        except ValueError:
+            return "00"
+
+        time = split[4]
+
+        minutes = time[2:4]
+
+        return int(minutes)
+
+    def display_time(self):
+        """Returns the stop time in a format suitable for display"""
+
+        try:
+            split = self.trip_id.split("_")
+        except ValueError:
+            return "00:00"
+
+        time = split[4]
+
+        hours = time[0:2]
+        minutes = time[2:4]
+
+        if int(hours) >= 24:
+            hours = f"0{int(hours) - 24}"
+
+        return f"{hours}:{minutes}"
+
     @staticmethod
     def from_database(data):
         """Creates StopTime object from SQLite database row.
@@ -105,6 +190,6 @@ class StopTime(SQLObject):
 
     def __repr__(self):
         if hasattr(self, "route_short_name"):
-            return f"{self.stop_id, self.route_short_name}"
+            return f"{self.route_short_name}-{self.trip_id}"
 
         return f"{self.stop_id}"

@@ -36,6 +36,7 @@ BUTTON_DEFAULT_HEIGHT = 2
 
 # tkinter font styling
 
+FONT_INFO = ("Arial", 12)
 FONT_BUTTON = ("Arial", 12)
 FONT_TEXT = ("Arial", 14)
 FONT_HEADER = ("Arial", 18)
@@ -44,3 +45,5 @@ FONT_HEADER = ("Arial", 18)
 
 WINDOW_INITIAL_WIDTH = 1000
 WINDOW_INITIAL_HEIGHT = 750
+
+ERROR_WEEKDAY = 100
