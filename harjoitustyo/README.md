@@ -17,6 +17,8 @@ Linkit dokumentaatioon:
 
 Linkit releaseihin:
 
+[loppupalautus](https://github.com/jpirhel/ot-harjoitustyo/releases/tag/loppupalautus)
+
 [Viikko 6 release](https://github.com/jpirhel/ot-harjoitustyo/releases/tag/viikko6)
 
 [Viikko 5 release](https://github.com/jpirhel/ot-harjoitustyo/releases/tag/viikko5)
