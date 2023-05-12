@@ -113,6 +113,7 @@ class Reader:
 
         WHERE stop_id = (SELECT id FROM stop WHERE stop_code = ?)
 
+        ORDER BY stop_time.arrival_time
         """
 
         res = self._execute_sql(sql, (stop.stop_code,))
