@@ -49,3 +49,10 @@
   - vasemman (control) framen layout
   - callback joka näyttää pysäkin tiedot
   - pysäkin tietoja kontrollinäkymässä
+
+## Viikko 7
+
+- parannettu dokumentaatiota
+- lisätty testejä
+- parannettu käyttöliittymää
+  - toteutettu pysäkkikohtainen aikataulu
