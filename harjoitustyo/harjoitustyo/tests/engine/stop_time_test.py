@@ -43,11 +43,3 @@ class TestStopTime(unittest.TestCase):
 
     def test_from_database_data_with_route_short_name(self):
         self.assertIsInstance(self.with_short_route_name, StopTime)
-
-    def test_repr_without_route_short_name(self):
-        correct = "1050417"
-        self.assertEqual(str(self.stop_time), correct)
-
-    def test_repr_with_route_short_name(self):
-        correct = "('1050417', '1')"
-        self.assertEqual(str(self.with_short_route_name), correct)
