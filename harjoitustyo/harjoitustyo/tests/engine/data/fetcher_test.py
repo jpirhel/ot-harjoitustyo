@@ -27,7 +27,6 @@ class TestFetcher(unittest.TestCase):
         self.fetcher.fetch()
 
         path = pathlib.Path(self._zip_path(DATA_FILE_NAME))
-        print(path)
 
         self.assertTrue(path.is_file())
 
